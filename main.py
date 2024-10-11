@@ -12,12 +12,14 @@ def read_code_file(file_path):
     with open(file_path, 'r') as file:
         code = file.read()
     result = analyze_code(code)
-    count = 0
-    for keyword in result:
-        if keyword == "True":
-            count += 1
-            print(count)
-    print(f'Count number = {count}, and reslt is now : {result}')
+    score = 0
+    # TODO: Add logic for a score player for 100 points per section
+    if "True" in result:
+        score += 10
+        print(f'Good answer, your score are now  : {score} / 100.')
+    else:
+        print(f"Wrong answer, you score is : {score} / 100.")
+    print(f'Count number = {score}, and result is now: {result}')
 
 
 def create_file(lang: str, subject: str) -> str:
@@ -54,7 +56,6 @@ def generate_command():
             '2': 'JavaScript',
             '3': 'Python',
         }
-
         lang = languages[lang_choice]  # Get the correct language name
         if lang and subject:
             create_file(lang, subject)
@@ -65,19 +66,22 @@ def generate_command():
 
 
 if __name__ == '__main__':
+
+    print("Hello, Welcome to Codegrunt. It's generator of exercice.")
+
     while True:
 
-        print("Hello, Welcome to Codegrunt. It's generator of exercice."
-              "You will have 3 commands\n"
+        print(" _____________________ \n"
+              "\n"
+              "To continue, you have 2 commands available \n"
               "generate - For generate exercice\n"
               "evaluate - For correct the provided path exercice\n"
               )
-
-        choice_command = input("Select your commands")
+        choice_command = input("Choice a command : ")
 
         if choice_command == "generate":
             generate_command()
         elif choice_command == "evaluate":
             # Evaluate the files
-            analyze = input("Write the name of the file to evaluate")
+            analyze = input("Write the name of the file to evaluate : ")
             read_code_file(analyze)
