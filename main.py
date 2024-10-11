@@ -1,6 +1,7 @@
-from commands import generate_command, evaluate_command
+from generate_command import generate_command
+from evaluated_command import evaluate_command
 
-# NOTE: Add system of logging to log the result and explaination
+# TODO: Add system of logging to log the result and explaination
 # for each exercice in .txt or .md local link to the folder,
 # push after each evaluate command
 global_score = {
