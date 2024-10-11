@@ -1,5 +1,6 @@
 from files_generated import create_file
 from openai_helpers import analyze_code
+from score_manager import score_count
 
 
 def generate_command():
@@ -28,20 +29,14 @@ def generate_command():
         print("Invalid language selection. Please enter 1, 2, or 3.")
 
 
-def read_code_file(file_path):
+def evaluate_command(file_path: str, global_score: dict) -> str:
     try:
         with open(file_path, 'r') as file:
             code = file.read()
         result = analyze_code(code)
-        score = 0
-        # TODO: Add logic for a score player for 100 points per section
-        if "True" in result:
-            score += 10
-            print(f'Good answer, your score are now  : {score} / 100.')
-        else:
-            print(f"Wrong answer, you score is : {score} / 100.")
-            # HACK: Delete the next print
-        print(f'Count number = {score}, and result is now: {result}')
+        # Calculate the score with score_count function
+        score_count(result, global_score)
+
     except FileNotFoundError:
         print(f"Error: The file '{
             file_path}' was not found. Please check the file path and try again.")
