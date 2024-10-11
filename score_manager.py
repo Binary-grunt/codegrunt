@@ -1,3 +1,7 @@
+import os
+
+EVALUATED_FILES = "evaluated_exercises.txt"
+
 
 def score_count(result: str, global_score: dict) -> str:
     if "True" in result:
@@ -10,9 +14,18 @@ def score_count(result: str, global_score: dict) -> str:
               global_score['total_score']} / 100.")
 
 
-def has_been_evaluated():
-    pass
+def mark_as_evaluated(file_path: str) -> str:
+
+    with open(EVALUATED_FILES, 'a') as file:
+        file.write(file_path + '\n')
 
 
-def mark_as_evaluated():
-    pass
+def has_been_evaluated(file_path: str) -> str:
+    if not os.path.exists(EVALUATED_FILES):
+        return False
+
+    with open(EVALUATED_FILES, 'r') as file:
+        # Lit tous les chemins de fichiers déjà évalués (avec extensions)
+        evaluated_files = file.read().splitlines()
+    # Retourne True si le chemin complet du fichier (y compris l'extension) est dans la liste
+    return file_path in evaluated_files
