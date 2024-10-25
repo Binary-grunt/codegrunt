@@ -1,5 +1,5 @@
 from exercise_file_generator import create_exercise_file
-from config import LANGUAGES
+from config import LANGUAGES, set_current_exercise_path
 
 
 def display_language_options():
@@ -36,6 +36,17 @@ def generate_command():
     subject = get_subject()
 
     if lang and subject:
-        create_exercise_file(lang, subject)
+        # Generate exercise file and store its path
+        file_path = create_exercise_file(lang, subject)
+        # Debugging output
+        print(f"File generated at: {file_path}")
+
+        if file_path:
+            # Set the current exercise path
+            set_current_exercise_path(file_path)
+            print(f"Your current exercise is: {file_path}.")
+            print("After completing it, use the 'submit' command to evaluate it.")
+        else:
+            print("Failed to generate the exercise file.")
     else:
         print("Failed to generate command due to invalid input.")

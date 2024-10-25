@@ -17,6 +17,17 @@ LANGUAGE_EXTENSIONS = {
 CURRENT_EXERCISE_FILE_PATH = None
 
 
+def set_current_exercise_path(path: str):
+    """Set the path for the current exercise file."""
+    global CURRENT_EXERCISE_FILE_PATH
+    CURRENT_EXERCISE_FILE_PATH = path
+
+
+def get_current_exercise_path() -> str:
+    """Get the path for the current exercise file."""
+    return CURRENT_EXERCISE_FILE_PATH
+
+
 # Score settings
 GLOBAL_SCORE = {
     "total_score": 0,

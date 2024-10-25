@@ -25,7 +25,7 @@ def generate_file_path(directory: str, subject: str, extension: str) -> str:
         file_name = f"{subject}_{num}.{extension}"
         file_path = os.path.join(directory, file_name)
         if not os.path.exists(file_path):
-            break
+            return file_path  # Return the unique file path
         num += 1
 
 
@@ -36,6 +36,7 @@ def write_exercise_to_file(file_path: str, content: str) -> str:
 
     print(f"File '{file_path}' generated successfully in '{
           os.path.dirname(file_path)}'.")
+    return file_path
 
 
 def create_exercise_file(lang: str, subject: str) -> str:
@@ -55,11 +56,13 @@ def create_exercise_file(lang: str, subject: str) -> str:
             file_path = generate_file_path(directory_path, subject, extension)
 
             # Write the exercise to the file
-            write_exercise_to_file(file_path, exercise_content)
+
             print(f"{language_name} exercise file generated successfully in '{
                   directory_path}'.")
+            return write_exercise_to_file(file_path, exercise_content)
 
         except Exception as e:
             print(f"An error occurred while generating the exercise file: {e}")
+            return None
     else:
         print("Invalid language. Please select a valid language.")
