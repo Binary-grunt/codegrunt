@@ -1,5 +1,5 @@
 import os
-from files_generated import create_file
+from exercise_file_generator import create_exercise_file
 from openai_helpers import analyze_code
 from score_manager import score_count, has_been_evaluated, mark_as_evaluated
 
@@ -13,10 +13,10 @@ def get_analyzed_code(file_path: str) -> str:
 def generate_new_subject(file_path: str) -> str:
     subject, extension = os.path.splitext(file_path)
     lang = extension[1:]  # recup extension of the precedent exercice
-    create_file(lang, subject)
+    create_exercise_file(lang, subject)
 
 
-def evaluate_command(file_path: str, global_score: dict) -> str:
+def submit_command(file_path: str, global_score: dict) -> str:
     try:
         if has_been_evaluated(file_path):
             print(f"The file '{

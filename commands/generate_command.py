@@ -1,10 +1,5 @@
-from files_generated import create_file
-
-LANGUAGES = {
-    '1': 'PHP',
-    '2': 'JavaScript',
-    '3': 'Python',
-}
+from exercise_file_generator import create_exercise_file
+from config import LANGUAGES
 
 
 def display_language_options():
@@ -15,8 +10,8 @@ def display_language_options():
 
 def get_language_choice():
     while True:
-
         display_language_options()
+
         lang_choice = input(
             "What's the programming language you want to learn? ")
 
@@ -41,6 +36,6 @@ def generate_command():
     subject = get_subject()
 
     if lang and subject:
-        create_file(lang, subject)
+        create_exercise_file(lang, subject)
     else:
         print("Failed to generate command due to invalid input.")
