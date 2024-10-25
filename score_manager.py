@@ -1,6 +1,5 @@
+from config import EVALUATED_FILES
 import os
-
-EVALUATED_FILES = "evaluated_exercises.txt"
 
 
 def score_count(result: str, global_score: dict) -> str:
@@ -15,7 +14,6 @@ def score_count(result: str, global_score: dict) -> str:
 
 
 def mark_as_evaluated(file_path: str) -> str:
-
     with open(EVALUATED_FILES, 'a') as file:
         file.write(file_path + '\n')
 
