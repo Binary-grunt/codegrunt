@@ -1,5 +1,4 @@
-import os
-from exercise_file_generator import create_exercise_file
+from exercise_file_generator import generate_new_exercise
 from openai_helpers import analyze_code
 from score_manager import score_count, has_been_evaluated, mark_as_evaluated
 from config import get_current_exercise_path
@@ -9,12 +8,6 @@ def get_analyzed_code(file_path: str) -> str:
     with open(file_path, 'r') as file:
         code = file.read()
     return analyze_code(code)
-
-
-def generate_new_exercise(file_path: str) -> None:
-    subject, extension = os.path.splitext(file_path)
-    lang = extension[1:]  # Get language from file extension
-    create_exercise_file(lang, subject)
 
 
 def submit_command(global_score: dict) -> str:
@@ -40,7 +33,6 @@ def submit_command(global_score: dict) -> str:
 
         # Generate a new exercise on the same subject
         generate_new_exercise(file_path)
-        print("New exercise generated. Check your directory for the new file.")
 
     except FileNotFoundError:
         print(f"Error: The file '{
