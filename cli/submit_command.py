@@ -1,6 +1,6 @@
-from exercise_file_generator import generate_new_exercise
-from openai_helpers import analyze_code
-from score_manager import score_count, has_been_evaluated, mark_as_evaluated
+from file_generators.exercise_generator import generate_new_exercise
+from core_utils.openai_helpers import analyze_code
+from core_utils.score_manager import score_count, has_been_evaluated, mark_as_evaluated
 from config import get_current_exercise_path
 
 
