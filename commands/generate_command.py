@@ -1,5 +1,6 @@
-from exercise_file_generator import create_exercise_file
+from exercise_file_generator import create_exercise_file, create_directory_if_not_exists
 from config import LANGUAGES, set_current_exercise_path
+import os
 
 
 def display_language_options():
@@ -36,9 +37,15 @@ def generate_command():
     subject = get_subject()
 
     if lang and subject:
-        # Generate exercise file and store its path
-        file_path = create_exercise_file(lang, subject)
-        # Debugging output
+        # Determine the directory path for the exercise
+        directory_name = f"{subject}_{lang.lower()}"
+        directory_path = os.path.join(os.getcwd(), directory_name)
+
+        # Create the directory if it does not exist
+        create_directory_if_not_exists(directory_path)
+
+        # Generate the exercise file and determine the file path
+        file_path = create_exercise_file(lang, subject, directory_path)
         print(f"File generated at: {file_path}")
 
         if file_path:
