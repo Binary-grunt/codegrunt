@@ -13,6 +13,12 @@ LANGUAGE_EXTENSIONS = {
     "php": ("php", "PHP"),
 }
 
+FILE_EXTENSION_MAP = {
+    "py": "python",
+    "js": "javascript",
+    "php": "php"
+}
+
 # Path for the current exercise file
 CURRENT_EXERCISE_FILE_PATH = None
 
