@@ -1,6 +1,7 @@
-from commands.generate_command import generate_command
-from commands.submit_command import submit_command
-from config import GLOBAL_SCORE
+from cli.generate_command import generate_command
+from cli.submit_command import submit_command
+from core_utils.score_manager import ScoreManager
+from cli_inputs import CLIInputs
 
 # TODO: Add system of logging to log the result and explaination
 # for each exercice in .txt or .md local link to the folder,
@@ -10,22 +11,26 @@ from config import GLOBAL_SCORE
 def main():
     print("Hello, Welcome to Codegrunt. It's a generator of exercises.")
 
-    while GLOBAL_SCORE["exercises_completed"] < 10:
+    cli_inputs = CLIInputs()
+    score_manager = ScoreManager()
+    while score_manager.exercises_completed() < 10:
 
         print(" _____________________ \n"
               "\n"
               "Available commands: \n"
               "generate - Generate a new exercise\n"
-              "submit - Submit the current exercise for evaluation\n")
+              " _____________________ \n"
+
+              )
 
         choice_command = input("Choose a command: ")
 
         if choice_command == "generate":
-            generate_command()
+            generate_command(cli_inputs)
         elif choice_command == "submit":
-            submit_command(GLOBAL_SCORE)
+            submit_command(score_manager, cli_inputs)
         else:
-            print("Invalid command. Please choose 'generate' or 'submit'.")
+            print("Invalid command. Please choose 'generate'")
 
 
 if __name__ == '__main__':
