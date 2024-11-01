@@ -32,7 +32,7 @@ class Inputs:
             return subject
         else:
             print("The subject cannot be empty. Please try again.")
-            return CLIInputs.get_subject()
+            return Inputs.get_subject()
 
     def get_or_prompt_api_key(self) -> str:
         """Get API key from environment or prompt user if not found."""
