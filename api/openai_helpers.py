@@ -1,4 +1,5 @@
 from openai import OpenAI
+import os
 
 client = OpenAI()
 
@@ -8,7 +9,10 @@ client = OpenAI()
 class OpenAIHelpers:
 
     def __init__(self):
-        self.api_key = None
+        self.api_key = os.getenv("OPENAI_API_KEY")
+        if not self.api_key:
+            raise ValueError(
+                "Don't find any OPENAI API key, reload the session")
 
     def set_api_key(self, api_key: str) -> None:
         return "EXPORT OPENAI_API_KEY=" + api_key
