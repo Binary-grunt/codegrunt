@@ -2,15 +2,14 @@ from file_generators.exercise_generator import generate_new_exercise
 from api.openai_helpers import OpenAIHelpers
 from core_utils.score_manager import ScoreManager
 from core_utils.path_manager import PathManager
-from cli_inputs import CLIInputs
+from cli.inputs import Inputs
 
 
-def submit_command(score: ScoreManager, cli_inputs: CLIInputs) -> str:
+def submit_command(score: ScoreManager, cli_inputs: Inputs) -> str:
     open_ai_api = OpenAIHelpers()
     path = PathManager()
     file_path = path.get_current_exercise_path()
     print("______________________\n")
-    print(f"Path : {file_path}")
 
     # Ensure the file path matches the current exercise file
     if not file_path:

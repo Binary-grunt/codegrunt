@@ -1,7 +1,8 @@
 from config.language_options import LANGUAGES
+import os
 
 
-class CLIInputs:
+class Inputs:
 
     def __init__(self):
         self.language_choice = None
@@ -32,6 +33,21 @@ class CLIInputs:
         else:
             print("The subject cannot be empty. Please try again.")
             return CLIInputs.get_subject()
+
+    def get_or_prompt_api_key(self) -> str:
+        """Get API key from environment or prompt user if not found."""
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            api_key = input("Enter your OpenAI API key: ").strip()
+            if api_key:
+                # Stock in environment for session use
+                os.environ["OPENAI_API_KEY"] = api_key
+                print(f"API key set for this session. Use:\n\nexport OPENAI_API_KEY={
+                      api_key}\n\nin your terminal to set it permanently.")
+            else:
+                print("API key cannot be empty. Please try again.")
+                return self.get_or_prompt_api_key()
+        return api_key
 
     def start_session(self):
         print("Starting a new session...")

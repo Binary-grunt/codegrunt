@@ -1,11 +1,11 @@
 from file_generators.exercise_generator import create_exercise_file
 from core_utils.path_manager import DirectoryManager, PathManager
 from config.language_options import LANGUAGES
-from cli_inputs import CLIInputs
+from cli.inputs import Inputs
 import os
 
 
-def generate_command(cli_inputs: CLIInputs) -> None:
+def generate_command(cli_inputs: Inputs) -> None:
     path_manager = PathManager()
     lang_choice = cli_inputs.get_language_choice()
     lang = LANGUAGES[lang_choice]
