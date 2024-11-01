@@ -38,3 +38,13 @@ class PathManager:
     def get_directory_path(self, subject: str, lang: str) -> str:
         # Use DirectoryManager to get or create directory path
         return self.directory_manager.directory_path(subject, lang)
+
+    @staticmethod
+    def show_current_exercise() -> None:
+        # Show the current exercise file name
+        current_exercise_path = PathManager.get_current_exercise_path()
+        if current_exercise_path:
+            file_name = os.path.basename(current_exercise_path)
+            print(f"Your current exercise is: {file_name} \n")
+        else:
+            print("No exercise file is currently set.")

@@ -7,8 +7,8 @@ from cli.inputs import Inputs
 
 def submit_command(score: ScoreManager, cli_inputs: Inputs) -> None:
     open_ai_api = OpenAIHelpers()
-    path = PathManager()
-    file_path = path.get_current_exercise_path()
+    path_manager = PathManager()
+    file_path = path_manager.get_current_exercise_path()
     print("______________________\n")
 
     # Ensure the file path matches the current exercise file

@@ -8,9 +8,6 @@ def write_exercise_to_file(file_path: str, content: str) -> str:
     """Writes the generated content to a file at the specified path."""
     with open(file_path, "w") as generated_file:
         generated_file.write(content)
-
-    print(f"File '{file_path}' generated successfully in '{
-          os.path.dirname(file_path)}'.")
     return file_path
 
 
@@ -62,7 +59,7 @@ def generate_new_exercise(file_path: str, subject: str) -> None:
     if new_file_path:
         PathManager.set_current_exercise_path(new_file_path)
         print(f"New exercise generated. On subject {
-              subject}Check your directory for the new file.")
-        print(f"Your current exercise is: {new_file_path}.")
+              subject} Check your directory for the new file.")
+        PathManager.show_current_exercise()
     else:
         print("Failed to generate a new exercise.")

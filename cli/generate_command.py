@@ -19,20 +19,12 @@ def generate_command(cli_inputs: Inputs) -> None:
         # Generate the exercise file and determine the file path
         file_path = create_exercise_file(lang, subject, full_directory_path)
         # Start the session and get the language and subject
-        # cli_inputs.start_session()
-        print(f"File generated at: {file_path}")
 
         if file_path:
             # Set the current exercise path
             path_manager.set_current_exercise_path(file_path)
-            print(f"Current exercise path set to: {file_path}")
-
             # Extract just the filename from the full path
-            file_name = os.path.basename(file_path)
-            print("______________________\n")
-            print(f"Your current exercise is: {file_name}.\n")
-            print("After completing it, use the 'submit' command to evaluate it.")
-            print("______________________\n")
+            path_manager.show_current_exercise()
         else:
             print("Failed to generate the exercise file.")
     else:
