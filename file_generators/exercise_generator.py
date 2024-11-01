@@ -14,7 +14,7 @@ def write_exercise_to_file(file_path: str, content: str) -> str:
     return file_path
 
 
-def create_exercise_file(lang: str, subject: str, directory_path: str) -> str:
+def create_exercise_file(lang: str, subject: str, directory_path: str) -> str | None:
     """Creates an exercise file for the specified subject and language."""
     lang = lang.lower()
     open_ai_api = OpenAIHelpers()

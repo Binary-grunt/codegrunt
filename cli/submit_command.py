@@ -5,7 +5,7 @@ from core_utils.path_manager import PathManager
 from cli.inputs import Inputs
 
 
-def submit_command(score: ScoreManager, cli_inputs: Inputs) -> str:
+def submit_command(score: ScoreManager, cli_inputs: Inputs) -> None:
     open_ai_api = OpenAIHelpers()
     path = PathManager()
     file_path = path.get_current_exercise_path()

@@ -34,7 +34,7 @@ class ScoreManager:
             evaluated_files = file.read().splitlines()
         return file_path in evaluated_files
 
-    def total_score(self) -> dict:
+    def total_score(self) -> int:
         """Return the total score and number of exercises completed."""
         return self._total_score
 

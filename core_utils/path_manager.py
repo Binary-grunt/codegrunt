@@ -14,7 +14,7 @@ class PathManager:
         PathManager.current_exercise_file_path = path
 
     @staticmethod
-    def get_current_exercise_path() -> str:
+    def get_current_exercise_path() -> str | None:
         # Get the path for the current exercise file.
         return PathManager.current_exercise_file_path
 

@@ -6,7 +6,7 @@ class Inputs:
 
     def __init__(self):
         self.language_choice = None
-        self.subject = None
+        self.subject = "" 
 
     def display_language_options(self):
         print("Please select the language -")
@@ -16,7 +16,6 @@ class Inputs:
     def get_language_choice(self):
         while True:
             self.display_language_options()
-
             lang_choice = input(
                 "What's the programming language you want to learn? ")
             if lang_choice in LANGUAGES:
@@ -32,7 +31,7 @@ class Inputs:
             return subject
         else:
             print("The subject cannot be empty. Please try again.")
-            return Inputs.get_subject()
+            return self.get_subject()
 
     def get_or_prompt_api_key(self) -> str:
         """Get API key from environment or prompt user if not found."""
@@ -49,9 +48,11 @@ class Inputs:
                 return self.get_or_prompt_api_key()
         return api_key
 
-    def start_session(self):
+    def start_session(self) -> None:
         print("Starting a new session...")
         self.get_language_choice()
         self.get_subject()
-        print(f"Session ready! Language: {
-              LANGUAGES[self.language_choice]}, Subject: {self.subject}")
+        if self.language_choice in LANGUAGES:
+            print(f"Session ready! Language: {LANGUAGES[self.language_choice]}, Subject: {self.subject}")
+        else:
+            print("Invalid language choice.")
