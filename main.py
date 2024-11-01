@@ -1,7 +1,7 @@
 from cli.generate_command import generate_command
 from cli.submit_command import submit_command
 from core_utils.score_manager import ScoreManager
-from cli_inputs import CLIInputs
+from cli.inputs import Inputs
 
 # TODO: Add system of logging to log the result and explaination
 # for each exercice in .txt or .md local link to the folder,
@@ -11,7 +11,7 @@ from cli_inputs import CLIInputs
 def main():
     print("Hello, Welcome to Codegrunt. It's a generator of exercises.")
 
-    cli_inputs = CLIInputs()
+    cli_inputs = Inputs()
     score_manager = ScoreManager()
     while score_manager.exercises_completed() < 10:
 
