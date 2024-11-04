@@ -4,7 +4,7 @@ import os
 class DirectoryManager:
     @staticmethod
     def create_directory(directory_name: str) -> str:
-        """Create a directory if it does not exist and return its name."""
+        # Create a directory if it does not exist and return its name.
         if not os.path.exists(directory_name):
             try:
                 os.mkdir(directory_name)

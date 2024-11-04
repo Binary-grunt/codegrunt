@@ -34,7 +34,7 @@ class Inputs:
             return self.get_subject()
 
     def get_or_prompt_api_key(self) -> str:
-        """Get API key from environment or prompt user if not found."""
+        # Get API key from environment or prompt user if not found.
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
             api_key = input("Enter your OpenAI API key: ").strip()
