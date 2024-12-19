@@ -1,114 +1,36 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="20%" alt="CODEGRUNT-logo">
-</p>
-<p align="center">
-    <h1 align="center">CODEGRUNT</h1>
-</p>
-<p align="center">
-    <em><code>❯ REPLACE-ME</code></em>
-</p>
-<p align="center">
-	<img src="https://img.shields.io/github/license/Binary-Blade/Codegrunt?style=default&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
-	<img src="https://img.shields.io/github/last-commit/Binary-Blade/Codegrunt?style=default&logo=git&logoColor=white&color=0080ff" alt="last-commit">
-	<img src="https://img.shields.io/github/languages/top/Binary-Blade/Codegrunt?style=default&color=0080ff" alt="repo-top-language">
-	<img src="https://img.shields.io/github/languages/count/Binary-Blade/Codegrunt?style=default&color=0080ff" alt="repo-language-count">
-</p>
-<p align="center">
-	<!-- default option, no dependency badges. -->
-</p>
-<br>
+# Project Planning for Code Grunt
 
-##  Table of Contents
+## Objectives
+- **Goal**: Develop a comprehensive tool to automate and improve code reviews.
+- **Purpose**: Enhance code quality by providing actionable feedback and suggestions.
+- **Success Metrics**: Improved code quality and developer satisfaction.
 
-- [ Overview](#-overview)
-- [ Features](#-features)
-- [ Project Structure](#-project-structure)
-  - [ Project Index](#-project-index)
-- [ Getting Started](#-getting-started)
-- [ Acknowledgments](#-acknowledgments)
+## Scope
+- **In-Scope**: Basic code analysis, user feedback, and integration with existing development workflows.
+- **Out-of-Scope**: Advanced AI-driven suggestions or language-specific optimizations.
 
----
+## Core Features
+- **Code Analysis**: Perform basic linting and syntax checks.
+- **Feedback Generation**: Provide users with clear, actionable feedback.
+- **User Interface**: Develop a command-line tool for easy integration.
 
-##  Overview
+## Constraints and Requirements
+- **Technical Constraints**: Must run locally with minimal setup and support multiple programming languages.
+- **Dependencies**: Requires Docker for containerization and SQLite for data storage.
 
-This project allows you to generate code files based on a programming language selected by the user. It uses the OpenAI API to generate content, such as simple exercises, and saves this content in a file depending on the chosen language.
+## Timeline and Milestones
+- **Phase 1**: Initial setup and configuration (3 days).
+- **Phase 2**: Core functionality implementation (2 weeks).
+- **Phase 3**: Testing and user feedback (2 week).
+- **Phase 4**: Documentation (1 week).
+- **Phase 5**: Deployment and maintenance (ongoing).
 
-## Features
+## Risk Assessment
+- **Potential Risks**: Compatibility issues with various environments.
+- **Mitigation**: Conduct extensive testing and gather user feedback to address issues early.
 
-- The user can choose a language from JavaScript, PHP, or Python.
-- The program generates a file for the selected language. It includes an OpenAI-generated exercise on creating variables in programming for JavaScript.
-- Uses `match` for handling different programming languages.
+## Responsibilities
+- **Project Lead**: [Binary-grunt] - Overall project management.
+- **Developers**: [Binary-grunt] - Implementation and testing.
+- **QA**: [Name] - Quality assurance and feedback collection.
 
----
-
-##  Project Structure
-
-```sh
-└── Codegrunt/
-    ├── LICENSE
-    ├── README.md
-    ├── evaluated_command.py
-    ├── files_generated.py
-    ├── generate_command.py
-    ├── main.py
-    ├── openai_helpers.py
-    ├── requirements.txt
-    └── score_manager.py
-```
-
-
-###  Project Index
-<details open>
-	<summary><b><code>CODEGRUNT/</code></b></summary>
-	<details> <!-- __root__ Submodule -->
-		<summary><b>__root__</b></summary>
-		<blockquote>
-			<table>
-			<tr>
-				<td><b><a href='https://github.com/Binary-Blade/Codegrunt/blob/master/openai_helpers.py'>openai_helpers.py</a></b></td>
-				<td><code>❯ REPLACE-ME</code></td>
-			</tr>
-			<tr>
-				<td><b><a href='https://github.com/Binary-Blade/Codegrunt/blob/master/requirements.txt'>requirements.txt</a></b></td>
-				<td><code>❯ REPLACE-ME</code></td>
-			</tr>
-			<tr>
-				<td><b><a href='https://github.com/Binary-Blade/Codegrunt/blob/master/main.py'>main.py</a></b></td>
-				<td><code>❯ REPLACE-ME</code></td>
-			</tr>
-			<tr>
-				<td><b><a href='https://github.com/Binary-Blade/Codegrunt/blob/master/generate_command.py'>generate_command.py</a></b></td>
-				<td><code>❯ REPLACE-ME</code></td>
-			</tr>
-			<tr>
-				<td><b><a href='https://github.com/Binary-Blade/Codegrunt/blob/master/evaluated_command.py'>evaluated_command.py</a></b></td>
-				<td><code>❯ REPLACE-ME</code></td>
-			</tr>
-			<tr>
-				<td><b><a href='https://github.com/Binary-Blade/Codegrunt/blob/master/score_manager.py'>score_manager.py</a></b></td>
-				<td><code>❯ REPLACE-ME</code></td>
-			</tr>
-			<tr>
-				<td><b><a href='https://github.com/Binary-Blade/Codegrunt/blob/master/files_generated.py'>files_generated.py</a></b></td>
-				<td><code>❯ REPLACE-ME</code></td>
-			</tr>
-			</table>
-		</blockquote>
-	</details>
-</details>
-
----
-##  Getting Started
-
-###  Prerequisites
-
-Before getting started with Codegrunt, ensure your runtime environment meets the following requirements:
-
-- **Programming Language:** Python
-- **Package Manager:** Pip
-
-##  Acknowledgments
-
-- List any resources, contributors, inspiration, etc. here.
-
----
