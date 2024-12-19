@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  app:
+    build:
+      context: .
+    volumes:
+      - .:/app
+      - db_data:/app/database  # Monte les données SQLite localement
+    container_name: codegrunt_app
+    environment:
+      - ENV=production
+    ports:
+      - "8000:8000"
