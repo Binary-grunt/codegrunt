@@ -1,9 +1,4 @@
-# Environment
-python-dotenv==1.0.1
-
-# Testing
-pytest==8.3.4
-pytest-mock==3.14.0
+# Production Dependencies
 
 # OpenAI API
 openai==1.58.1

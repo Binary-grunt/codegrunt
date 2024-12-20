@@ -1,0 +1,9 @@
+# Development Dependencies
+
+flake8>=7.1.1,<7.2
+# Environment management in dev
+python-dotenv==1.0.1
+
+# Testing
+pytest==8.3.4
+pytest-mock==3.14.0
