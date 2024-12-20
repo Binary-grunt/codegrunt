@@ -1,0 +1,70 @@
+@startuml
+title Code Grunt - Enhanced Activity Diagram
+
+start
+:Launch program;
+:Check if all dependencies are met;
+
+if (Dependencies OK?) then (Yes)
+    :Load previous session if exists;
+    if (Previous session?) then (Yes)
+        :Resume previous session;
+    else (No)
+        if (First-time user?) then (Yes)
+            :Launch interactive tutorial;
+        else (No)
+            :Prompt user to select;
+            :Validate user input;
+            if (Input invalid?) then (Yes)
+                :Display error and reprompt;
+            else (No)
+                :Make API call to generate exercise (with retry logic);
+            endif
+        endif
+    endif
+else (No)
+    :Display error and exit with troubleshooting guide;
+    stop
+endif
+
+repeat
+  if (API call successful?) then (Yes)
+      :Display exercise to user;
+      :User solves exercise;
+      :Submit solution via command;
+      :Make API call to validate solution (with retry logic);
+
+      if (Solution correct?) then (Yes)
+          :Award 1 point;
+          :Adjust difficulty based on performance;
+      else (No)
+          :Display detailed feedback with hints;
+          if (User failed 3 times?) then (Yes)
+              :Offer simplified example or solution;
+          endif
+          :Allow user to retry or skip;
+      endif
+  else (No)
+      :Display error and exit session;
+      stop
+  endif
+repeat while (Exercises < 10 && API quota available)
+
+if (User exits or crash detected?) then (Yes)
+    :Auto-save session;
+    stop
+endif
+
+:Save session and display final score;
+if (New high score?) then (Yes)
+    :Congratulate user and save to history;
+endif
+
+:Display detailed session statistics:
+- Success rate per topic (%)
+- Average time by difficulty
+- Progression over session;
+
+:Exit program;
+stop
+@enduml

@@ -1,0 +1,16 @@
+@startuml
+actor User as U
+control System as S
+entity Environment as E
+
+== Dependency Check ==
+
+U -> S: Launch Program
+S -> E: Check OPEN_API_KEY
+E --> S: OPEN_API_KEY Found
+S -> E: Check Python Modules
+E --> S: All Modules Present
+S -> E: Check SQLite/Docker
+E --> S: Dependencies OK
+S --> U: Ready to Proceed
+@enduml

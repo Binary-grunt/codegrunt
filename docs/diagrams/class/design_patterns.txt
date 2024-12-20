@@ -1,0 +1,82 @@
+@startuml
+title Code Grunt - Design Patterns Diagram
+
+' ---------------------------
+' Strategy Pattern
+' ---------------------------
+interface IExerciseStrategy <<Strategy>> {
+  + generateExercise(topic: String): Exercise
+}
+
+class BeginnerExerciseStrategy {
+  + generateExercise(topic: String): Exercise
+}
+
+class AdvancedExerciseStrategy {
+  + generateExercise(topic: String): Exercise
+}
+
+IExerciseStrategy <|.. BeginnerExerciseStrategy
+IExerciseStrategy <|.. AdvancedExerciseStrategy
+
+' ---------------------------
+' Factory Method Pattern
+' ---------------------------
+abstract class ExerciseFactory <<Factory>> {
+  + createExercise(topic: String): Exercise
+}
+
+class BeginnerExerciseFactory {
+  + createExercise(topic: String): Exercise
+}
+
+class AdvancedExerciseFactory {
+  + createExercise(topic: String): Exercise
+}
+
+ExerciseFactory <|-- BeginnerExerciseFactory
+ExerciseFactory <|-- AdvancedExerciseFactory
+
+' ---------------------------
+' Singleton Pattern
+' ---------------------------
+class OpenAIAPI <<Singleton>> {
+  - static instance: OpenAIAPI
+  - apiKey: String
+  + getInstance(): OpenAIAPI
+  + sendRequest(prompt: String): String
+  + validateSolution(solution: String, expected: String): boolean
+}
+
+' ---------------------------
+' Repository Pattern
+' ---------------------------
+interface IRepository <<Repository>> {
+  + saveSession(userId: int, sessionData: String): boolean
+  + loadSession(userId: int): String
+}
+
+class LocalDatabase {
+  + saveSession(userId: int, sessionData: String): boolean
+  + loadSession(userId: int): String
+}
+
+IRepository <|.. LocalDatabase
+
+' ---------------------------
+' Link to the main objects (context)
+' ---------------------------
+class Exercise {
+  - id: int
+  - description: String
+  - expectedSolution: String
+  + getDetails(): void
+}
+
+' L’ExerciseStrategy utilise une ExerciseFactory pour créer des exercices
+IExerciseStrategy --> ExerciseFactory : uses factory
+
+' La factory crée des Exercise
+ExerciseFactory --> Exercise : creates
+
+@enduml

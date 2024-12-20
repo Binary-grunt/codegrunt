@@ -1,0 +1,33 @@
+@startuml
+title Submitting a Solution and Validation
+
+actor User
+control Program
+boundary OpenAI_API
+entity Exercise
+
+User -> Program: Submit solution (command)
+Program -> OpenAI_API: Validate solution (retry logic)
+alt API success
+    OpenAI_API --> Program: Validation result
+    alt Solution correct
+        Program -> Program: Award 1 point
+        Program -> Program: Adjust difficulty
+        Program -> User: Display success
+    else Solution incorrect
+        Program -> User: Display feedback and hints
+        alt User failed 3 times?
+            Program -> User: Offer simplified example/solution
+        end
+        Program -> User: Allow retry or skip
+    end
+else API error
+    Program -> Program: Retry up to 3 times
+    alt Retry successful
+        OpenAI_API --> Program: Validation result
+        ... (same logic as above) ...
+    else Retry failed
+        Program -> User: Display error and exit session
+    end
+end
+@enduml

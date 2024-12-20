@@ -1,0 +1,39 @@
+@startuml
+title Initialization and First Exercise Generation
+
+actor User
+control Program
+database LocalDatabase
+boundary OpenAI_API
+
+User -> Program: Launch program
+Program -> Program: Check dependencies (OPEN_API_KEY, modules, Docker)
+
+alt Dependencies OK
+    Program -> LocalDatabase: Load previous session?
+    alt Previous session found
+        LocalDatabase --> Program: Session data
+        Program -> Program: Resume session
+    else No previous session
+        Program -> Program: Check if first-time user?
+        alt First-time user
+            Program -> Program: Launch interactive tutorial
+        else Returning user
+            Program -> User: Prompt for language/level/topic
+            User --> Program: User selections
+            Program -> Program: Validate input
+            alt Input invalid
+                Program -> User: Display error and reprompt
+            else Valid input
+                Program -> OpenAI_API: Generate first exercise (retry logic)
+                OpenAI_API --> Program: Exercise details
+                Program -> Program: Set initial score to 0
+            end
+        end
+    end
+else Dependencies not OK
+    Program -> User: Display error and troubleshooting guide
+end
+
+Program -> User: Display first exercise
+@enduml

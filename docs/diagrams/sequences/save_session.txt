@@ -1,0 +1,25 @@
+@startuml
+title Session Saving and Statistics Display
+
+actor User
+control Program
+database LocalDatabase
+entity StatsCalculator
+
+User -> Program: Exit or session ends
+alt User exits or crash detected
+    Program -> LocalDatabase: Save session data
+    LocalDatabase --> Program: Confirmation
+    Program -> User: Session saved successfully
+else Normal end of session
+    Program -> LocalDatabase: Save session data
+    LocalDatabase --> Program: Confirmation
+    Program -> StatsCalculator: Calculate session stats
+    StatsCalculator --> Program: Stats (success rate, avg time, progression)
+    Program -> User: Display final score and detailed stats
+    alt New high score
+        Program -> User: Congratulate and save to history
+    end
+    Program -> User: Exit program
+end
+@enduml

@@ -1,0 +1,48 @@
+@startuml
+title Code Grunt - High-Level Architectural Diagram
+
+node "User Interface (CLI)" as UI {
+  [UserInput]
+  [User Commands (Submit, Quit...)]
+}
+
+node "Core Logic" as CORE {
+  [ExerciseManager]
+  [StatsCalculator]
+}
+
+node "Patterns" as PATTERNS {
+  frame "Strategy" {
+    [IExerciseStrategy]
+    [BeginnerExerciseStrategy]
+    [AdvancedExerciseStrategy]
+  }
+
+  frame "Factory" {
+    [ExerciseFactory]
+    [BeginnerExerciseFactory]
+    [AdvancedExerciseFactory]
+  }
+}
+
+node "Infrastructure" as INFRA {
+  node "API" {
+    [OpenAIAPI (Singleton)]
+  }
+  
+  node "Database" {
+    [LocalDatabase (Repository)]
+  }
+}
+
+[Exercise] as EX
+
+UI --> CORE : User inputs
+CORE --> PATTERNS : Select and use strategies/factories
+CORE --> EX : Manage exercises (created via factories)
+CORE --> INFRA: Interact with API and Database
+
+INFRA --> CORE : Provide data (exercises from API, sessions from DB)
+PATTERNS --> CORE : Return configured Exercise objects
+
+@enduml

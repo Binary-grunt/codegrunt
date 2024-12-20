@@ -1,0 +1,48 @@
+@startuml
+title Code Grunt - Main Class Diagram (Simplified)
+
+class UserInput {
+  - language: String
+  - level: String
+  - topic: String
+  + getInputs(): void
+}
+
+class ExerciseManager {
+  - currentExercise: Exercise
+  - score: int
+  + generateExercise(): Exercise
+  + submitSolution(solution: String): boolean
+}
+
+class OpenAIAPI {
+  - apiKey: String
+  + sendRequest(prompt: String): String
+  + validateSolution(solution: String, expected: String): boolean
+}
+
+class Exercise {
+  - id: int
+  - description: String
+  - expectedSolution: String
+  + getDetails(): void
+}
+
+class StatsCalculator {
+  - exercisesCompleted: int
+  - totalTime: float
+  + calculateSuccessRate(): float
+  + generateStats(): String
+}
+
+class LocalDatabase {
+  + saveSession(userId: int, sessionData: String): boolean
+  + loadSession(userId: int): String
+}
+
+UserInput --> ExerciseManager : provides inputs
+ExerciseManager --> OpenAIAPI : API calls
+ExerciseManager --> Exercise : manages exercises
+ExerciseManager --> LocalDatabase : stores/loads session data
+ExerciseManager --> StatsCalculator : calculates stats
+@enduml
