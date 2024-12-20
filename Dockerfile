@@ -11,7 +11,7 @@ ARG DEV=false
 # Set the working directory
 WORKDIR /app
 
-# Copy only the requirements files first to take advantage of Docker cache
+# Copy only the requirements files first to take advantage of the Docker cache
 COPY requirements.txt /tmp/requirements.txt
 COPY requirements.dev.txt /tmp/requirements.dev.txt
 
@@ -29,9 +29,7 @@ RUN python -m venv /py && \
     fi && \
     rm -rf /tmp
 
-# Copy the application code
-COPY . .
-
+# Do NOT copy the application code here; it will be mounted as a volume
 # Add a non-root user for security
 RUN adduser --disabled-password --no-create-home codegruntuser
 USER codegruntuser
@@ -42,4 +40,5 @@ ENV PATH="/py/bin:$PATH"
 EXPOSE 8000
 
 # Set the default command
+# The code will be mounted from the host, so just run main.py from there
 CMD ["python", "main.py"]
