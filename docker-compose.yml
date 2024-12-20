@@ -1,13 +1,44 @@
-version: '3.9'
+version: "3.9"
+
 services:
   app:
     build:
       context: .
-    volumes:
-      - .:/app
-      - db_data:/app/database  # Monte les données SQLite localement
-    container_name: codegrunt_app
+      dockerfile: Dockerfile
+      # To build in dev mode
+      args:
+         DEV: "true"
+    container_name: code_grunt_app
+    image: code_grunt:latest
+    env_file: 
+      - .env
     environment:
-      - ENV=production
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+    volumes:
+      # Mount a volume to persist the database and other data
+      - app_data:/app/data
     ports:
       - "8000:8000"
+    command: ["python", "main.py"]
+    # depends_on:
+    #   - db (if you have an external service like a separate database)
+    # networks:
+    #   - codegrunt_net
+
+# If you ever use another service, such as an external database (Postgres, Redis, etc.),
+# db:
+#   image: postgres:16
+#   environment:
+#     POSTGRES_USER: user
+#     POSTGRES_PASSWORD: pass
+#     POSTGRES_DB: codegruntdb
+#   volumes:
+#     - db_data:/var/lib/postgresql/data
+#   networks:
+#     - codegrunt_net
+
+volumes:
+  app_data:
+
+# networks:
+#   codegrunt_net:

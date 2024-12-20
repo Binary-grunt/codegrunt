@@ -1,0 +1,8 @@
+# Ignore unnecessary files and directories
+.git
+.venv
+docs/
+tests/
+.env
+*.pyc
+__pycache__/
