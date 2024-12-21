@@ -80,4 +80,30 @@ def test_openai_key_get_client(mock_getenv, mock_openai):
     openai_key_instance = OpenAIKey()
 
     # Verify that get_client returns the same client
-    assert openai_key_instance.get_client() == mock_client
+    assert openai_key_instance.client == mock_client
+
+
+@patch("infrastructure.api.openai_key.OpenAI")
+@patch("infrastructure.api.openai_key.os.getenv", return_value="test-api-key")
+def test_openai_key_set_api_key(mock_getenv, mock_openai):
+    """
+    Test the behavior of updating the API key using the setter.
+    """
+    # Reset the singleton instance cache
+    SingletonMeta.reset_instances()
+
+    # Mock the OpenAI client
+    mock_client = MagicMock()
+    mock_openai.return_value = mock_client
+
+    # Instantiate OpenAIKey
+    openai_key_instance = OpenAIKey()
+
+    # Update the API key
+    new_key = "new-test-api-key"
+    with patch("infrastructure.api.openai_key.os.getenv", return_value=new_key):
+        openai_key_instance.api_key = new_key
+
+    # Verify that the API key is updated and the client is reconfigured
+    assert openai_key_instance.api_key == new_key
+    mock_openai.assert_called_with(api_key=new_key)  # Check client reinitialization

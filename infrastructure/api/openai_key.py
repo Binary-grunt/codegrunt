@@ -13,11 +13,10 @@ class OpenAIKey:
     def __init__(self, api_key: str = None):
         """
         Initializes the OpenAIKey instance with an API key and sets up the client.
-        Only sets attributes; delegates key loading and client initialization to other methods.
         """
         load_dotenv()  # Load environment variables from .env file
-        self.api_key = api_key or self._load_api_key()
-        self.client = self._setup_client()
+        self._api_key = api_key or self._load_api_key()
+        self._client = self._setup_client()
 
     def _load_api_key(self) -> str:
         """
@@ -35,15 +34,34 @@ class OpenAIKey:
         Sets up and returns the OpenAI client using the API key.
         """
         try:
-            client = OpenAI(api_key=self.api_key)
+            client = OpenAI(api_key=self._api_key)
             # Validate the client by making a test request (e.g., list models)
             client.models.list()
             return client
         except Exception as e:
             raise ValueError(f"Failed to initialize OpenAI client: {e}")
 
-    def get_client(self) -> OpenAI:
+    @property
+    def api_key(self) -> str:
         """
-        Returns the OpenAI client instance.
+        Getter for the API key.
         """
-        return self.client
+        return self._api_key
+
+    @api_key.setter
+    def api_key(self, new_key: str):
+        """
+        Setter for the API key. Updates the key and reconfigures the client.
+        """
+        print(f"Updating API key to: {new_key}")
+        if not new_key:
+            raise ValueError("API key cannot be empty.")
+        self._api_key = new_key
+        self._client = self._setup_client()  # Reconfigure client with new key
+
+    @property
+    def client(self) -> OpenAI:
+        """
+        Getter for the OpenAI client.
+        """
+        return self._client
