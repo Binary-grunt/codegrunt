@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from infrastructure.database.models import Sessions as SessionsModel
+from database.models import Sessions as SessionsModel
 
 
 class SessionsRepository:

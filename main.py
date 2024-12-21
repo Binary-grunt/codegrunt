@@ -1,37 +1,44 @@
-from cli.generate_command import generate_command
-from cli.submit_command import submit_command
-from core_utils.score_manager import ScoreManager
-from cli.inputs import Inputs
+from api import OpenAIKey, OpenAIPrompt
+# from infrastructure.database import initialization_db
+# from infrastructure.database.sqlite_config import SessionLocal
+# from infrastructure.repository import SessionsRepository, StatsRepository
 
-# TODO: Add system of logging to log the result and explaination
-# for each exercice in .txt or .md local link to the folder,
-# push after each evaluate command
+# TODO: Refactoriying the code, make a class for DB SQLITE
 
 
 def main():
-    print("Hello, Welcome to Codegrunt. It's a generator of exercises.")
+    try:
+        openai_key = OpenAIKey()
+        client = openai_key.client
+        openai_prompt = OpenAIPrompt(client)
+        print(openai_prompt.generate_exercise("OOP", "typescript", "expert"))
 
-    cli_inputs = Inputs()
-    score_manager = ScoreManager()
-    while score_manager.exercises_completed() < 10:
+        # # Initialiser la base de données
+        # initialization_db()
+        # with SessionLocal() as db:
+        #     session_repo = SessionsRepository(db)
+        #     stats_repo = StatsRepository(db)
+        #
+        #     # Create a new session
+        #     session = session_repo.create_session(user_id=1, score=90, exercises_completed=5, successful_exercises=4)
+        #     print(f"Created session: {session.id}")
+        #
+        #     # Update stats
+        #     stats = stats_repo.create_or_update_stats(user_id=1, total_sessions=1, total_exercises=5, average_score=90.0)
+        #     print(f"Updated stats: {stats.average_score}")
+        #
+        #     # Retrieve sessions
+        #     sessions = session_repo.get_sessions_by_user(user_id=1)
+        #     print(f"User 1 has {len(sessions)} sessions.")
 
-        print(" _____________________ \n"
-              "\n"
-              "Available commands: \n"
-              "generate - Generate a new exercise\n"
-              " _____________________ \n"
-
-              )
-
-        choice_command = input("Choose a command: ")
-
-        if choice_command == "generate":
-            generate_command(cli_inputs)
-        elif choice_command == "submit":
-            submit_command(score_manager, cli_inputs)
-        else:
-            print("Invalid command. Please choose 'generate'")
+        print("OpenAI client is ready to use.")
+        print(client)
+    except ValueError as e:
+        print(e)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+    print("Starting Code Grunt...")
     main()
+    while True:
+        pass  # Keep the process alive (replace this with meaningful logic if needed)

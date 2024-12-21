@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from infrastructure.database.models import Stats
+from database.models import Stats
 
 
 class StatsRepository:

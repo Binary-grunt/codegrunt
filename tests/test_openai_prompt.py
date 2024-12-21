@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import MagicMock
-from infrastructure.api.openai_prompt import OpenAIPrompt
+from api.openai_prompt import OpenAIPrompt
 
 
 @pytest.fixture

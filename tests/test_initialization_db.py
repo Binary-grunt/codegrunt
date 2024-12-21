@@ -1,6 +1,6 @@
 from sqlalchemy import inspect
-from infrastructure.database import initialization_db, engine
-from infrastructure.database.models import Base
+from database import initialization_db, engine
+from database.models import Base
 
 
 def test_init_db():

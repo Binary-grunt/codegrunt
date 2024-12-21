@@ -1,8 +1,8 @@
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from infrastructure.database.models import Base, Stats
-from infrastructure.repository import StatsRepository
+from database.models import Base, Stats
+from database.repository import StatsRepository
 
 # Fixture for in-memory SQLite database
 

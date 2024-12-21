@@ -27,23 +27,29 @@ class OpenAIPrompt:
         """
         return {"role": role, "content": content}
 
-    def generate_exercise(self, subject: str, language: str) -> str:
+    def generate_exercise(self, subject: str, language: str, level: str) -> str:
         """
-        Creates a chat completion based on the given subject and language.
+        Creates a chat completion based on the given subject, language, and difficulty level.
 
         Args:
             subject (str): The programming subject for the exercise.
             language (str): The programming language for the exercise.
+            level (str): The difficulty level (e.g., "beginner", "medium", "advanced").
 
         Returns:
             str: The generated exercise code.
         """
-        system_message = """You are a programming teacher. Create simple exercises with instructions in comments."""
+        system_message = """You are a programming teacher. Create simple exercises with instructions in comments tailored to difficulty levels."""
         user_message = f"""
-                        Write will create a exercice on the next subject {subject} on the language {language}
-                        and make a exercice simple to create variable in programming, just the code without
-                        markdown and ``` return pur code exercice. Just the instruction inside commentary
-                        and the prototype code starter, like leetcode."""
+                        You will write an exercice on the next subject {subject} on the language {language}. Dont return the result, only the exercise.
+                        The exercise should match the difficulty level '{level}'.
+                        Include:
+                            - Instructions in comments like leetcode.
+                            - A starter code prototype.
+                            - Only pure code (no markdown or backticks).
+                            - A single exercise per prompt.
+                            - The exercise should be solvable in a reasonable time frame, and depends on the difficulty level.
+                        """
         messages = [
             self._generate_message("system", system_message),
             self._generate_message("user", user_message),
