@@ -10,7 +10,7 @@ def mock_openai_service():
     Fixture to create a mocked OpenAIService instance.
     """
     service = MagicMock(spec=OpenAIService)
-    service.send_message.return_value = "Mocked response from OpenAI"
+    service.request_response_to_openai.return_value = "Mocked response from OpenAI"
     return service
 
 
@@ -26,7 +26,7 @@ def test_execute_prompt(mock_openai_service):
 
     response = manager.execute_prompt(prompt)
 
-    mock_openai_service.send_message.assert_called_once_with([
+    mock_openai_service.request_response_to_openai.assert_called_once_with([
         {"role": "system", "content": "You are a system."},
         {"role": "user", "content": "Generate something interesting."},
     ])
@@ -55,7 +55,7 @@ def test_generate_exercise(mock_factory, mock_openai_service):
 
     mock_factory.assert_called_once_with(level)
     mock_strategy.generate_prompt.assert_called_once_with(subject, language)
-    mock_openai_service.send_message.assert_called_once_with([
+    mock_openai_service.request_response_to_openai.assert_called_once_with([
         {"role": "system", "content": "Mocked system message for exercise."},
         {"role": "user", "content": "Mocked user message for exercise."},
     ])
@@ -79,7 +79,7 @@ def test_analyze_code(mock_generate_prompt, mock_openai_service):
     response = manager.analyze_code(file_content)
 
     mock_generate_prompt.assert_called_once_with(file_content)
-    mock_openai_service.send_message.assert_called_once_with([
+    mock_openai_service.request_response_to_openai.assert_called_once_with([
         {"role": "system", "content": "Mocked system message for code analysis."},
         {"role": "user", "content": "Mocked user message for code analysis."},
     ])

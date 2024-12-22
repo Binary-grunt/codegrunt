@@ -25,7 +25,7 @@ class ExerciseManager:
             {"role": "system", "content": prompt["system_message"]},
             {"role": "user", "content": prompt["user_message"]},
         ]
-        return self.openai_service.send_message(messages)
+        return self.openai_service.request_response_to_openai(messages)
 
     def generate_exercise(self, subject: str, language: str, level: str) -> str:
         """
