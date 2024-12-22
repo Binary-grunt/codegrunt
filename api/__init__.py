@@ -1,7 +1,7 @@
 from .openai_key import OpenAIKey
-from .openai_prompt import OpenAIPrompt
+from .openai_service import OpenAIService
 
 __all__ = [
     "OpenAIKey",
-    "OpenAIPrompt",
+    "OpenAIService",
 ]
