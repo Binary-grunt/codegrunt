@@ -1,4 +1,4 @@
-from api import OpenAIKey, OpenAIService
+from api import OpenAIService
 from core.exercise_manager import ExerciseManager
 # from infrastructure.database import initialization_db
 # from infrastructure.database.sqlite_config import SessionLocal
@@ -9,17 +9,13 @@ from core.exercise_manager import ExerciseManager
 
 def main():
     try:
-        # Initialized OpenAIKey class
-        openai_key = OpenAIKey()
-        client = openai_key.client
+        # Get the singleton instance of OpenAIService
+        openai_service = OpenAIService()
 
-        # Initialize OpenAIService class to get the client
-        openai_service = OpenAIService(client)
-
-        # Initialize ExerciseManager class to get the openai_service
+        # Initialize ExerciseManager with the singleton OpenAIService
         exercise_manager = ExerciseManager(openai_service)
 
-        # Test the generate_exercise method in ExerciseManager.
+        # Test the generate_exercise method in ExerciseManager
         print(exercise_manager.generate_exercise("OOP", "typescript", "beginner"))
 
         # # Initialized the database
@@ -40,8 +36,6 @@ def main():
         #     sessions = session_repo.get_sessions_by_user(user_id=1)
         #     print(f"User 1 has {len(sessions)} sessions.")
 
-        print("OpenAI client is ready to use.")
-        print(client)
     except ValueError as e:
         print(e)
 
