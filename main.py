@@ -1,4 +1,5 @@
-from api import OpenAIKey, OpenAIPrompt
+from api import OpenAIKey, OpenAIService
+from core.exercise_manager import ExerciseManager
 # from infrastructure.database import initialization_db
 # from infrastructure.database.sqlite_config import SessionLocal
 # from infrastructure.repository import SessionsRepository, StatsRepository
@@ -8,12 +9,20 @@ from api import OpenAIKey, OpenAIPrompt
 
 def main():
     try:
+        # Initialized OpenAIKey class
         openai_key = OpenAIKey()
         client = openai_key.client
-        openai_prompt = OpenAIPrompt(client)
-        print(openai_prompt.generate_exercise("OOP", "typescript", "expert"))
 
-        # # Initialiser la base de données
+        # Initialize OpenAIService class to get the client
+        openai_service = OpenAIService(client)
+
+        # Initialize ExerciseManager class to get the openai_service
+        exercise_manager = ExerciseManager(openai_service)
+
+        # Test the generate_exercise method in ExerciseManager.
+        print(exercise_manager.generate_exercise("OOP", "typescript", "beginner"))
+
+        # # Initialized the database
         # initialization_db()
         # with SessionLocal() as db:
         #     session_repo = SessionsRepository(db)
