@@ -1,5 +1,7 @@
 from api import OpenAIService
-from core.exercise_manager import ExerciseManager
+from core import ExerciseManager, ExerciseGenerator
+import typer
+from rich import print
 # from infrastructure.database import initialization_db
 # from infrastructure.database.sqlite_config import SessionLocal
 # from infrastructure.repository import SessionsRepository, StatsRepository
@@ -9,14 +11,28 @@ from core.exercise_manager import ExerciseManager
 
 def main():
     try:
-        # Get the singleton instance of OpenAIService
+        # Initialize the OpenAIService and ExerciseManager
         openai_service = OpenAIService()
-
-        # Initialize ExerciseManager with the singleton OpenAIService
         exercise_manager = ExerciseManager(openai_service)
+        language = "python"
+        subject = "OOP"
+        level = "advanced"
 
-        # Test the generate_exercise method in ExerciseManager
-        print(exercise_manager.generate_exercise("OOP", "typescript", "beginner"))
+        generator = ExerciseGenerator(language, subject, level, exercise_manager)
+        while True:
+            command = input("Enter command (submit/exit): ").strip().lower()
+
+            if command == "submit":
+                # Generate and save the exercise
+                file_path = generator.generate_and_save_exercise()
+                print(f"Exercise saved at: {file_path}")
+            elif command == "exit":
+                print("Exiting...")
+                break
+            else:
+                print("Invalid command. Use 'submit' or 'exit'.")
+    except ValueError as e:
+        print(f"Error: {e}")
 
         # # Initialized the database
         # initialization_db()
@@ -36,12 +52,12 @@ def main():
         #     sessions = session_repo.get_sessions_by_user(user_id=1)
         #     print(f"User 1 has {len(sessions)} sessions.")
 
+        print("Starting Code Grunt...")
     except ValueError as e:
         print(e)
 
 
 if __name__ == "__main__":
-    print("Starting Code Grunt...")
-    main()
+    typer.run(main)
     while True:
         pass  # Keep the process alive (replace this with meaningful logic if needed)
