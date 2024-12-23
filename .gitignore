@@ -1,3 +1,7 @@
 .venv
 .env
 __pycache__
+exercises/*
+!exercises/__init__.py
+!exercises/
+
