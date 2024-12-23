@@ -1,5 +1,5 @@
 import threading
-from patterns.decorators import singleton, SingletonMeta
+from common.decorators import singleton, SingletonMeta
 
 
 @singleton

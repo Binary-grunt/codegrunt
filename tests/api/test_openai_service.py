@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import patch, MagicMock
 from api.openai_service import OpenAIService
 from api.openai_key import OpenAIKey
-from patterns.decorators import SingletonMeta
+from common.decorators import SingletonMeta
 
 
 @pytest.fixture

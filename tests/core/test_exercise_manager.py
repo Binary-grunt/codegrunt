@@ -14,21 +14,20 @@ def mock_openai_service():
     return service
 
 
-def test_execute_prompt(mock_openai_service):
+def test_send_prompt_to_openai(mock_openai_service):
     """
-    Test the execute_prompt method in ExerciseManager.
+    Test the _send_prompt_to_openai method in ExerciseManager.
     """
     manager = ExerciseManager(openai_service=mock_openai_service)
-    prompt = {
-        "system_message": "You are a system.",
-        "user_message": "Generate something interesting.",
-    }
 
-    response = manager.execute_prompt(prompt)
+    system_message = "You are a system."
+    user_message = "Generate something interesting."
+
+    response = manager._send_prompt_to_openai(system_message, user_message)
 
     mock_openai_service.request_response_to_openai.assert_called_once_with([
-        {"role": "system", "content": "You are a system."},
-        {"role": "user", "content": "Generate something interesting."},
+        {"role": "system", "content": system_message},
+        {"role": "user", "content": user_message},
     ])
     assert response == "Mocked response from OpenAI"
 

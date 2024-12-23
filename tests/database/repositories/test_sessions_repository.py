@@ -2,7 +2,7 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database.models import Base, Sessions
-from database.repository import SessionsRepository
+from database.repositories import SessionsRepository
 
 # Fixture for in-memory SQLite database
 

@@ -2,7 +2,7 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database.models import Base, User
-from database.repository import UserRepository
+from database.repositories import UserRepository
 
 # Fixture for in-memory SQLite database
 
