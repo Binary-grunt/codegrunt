@@ -1,5 +1,5 @@
 from openai import OpenAI
-from patterns.decorators import singleton
+from common.decorators import singleton
 from api.openai_key import OpenAIKey
 
 

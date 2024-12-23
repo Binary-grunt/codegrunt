@@ -13,7 +13,7 @@ class OpenAIKey:
         """
         Loads the OpenAI API key from the settings.
         """
-        from config.settings import settings  # Import here to avoid circular imports
+        from config.settings import settings
         api_key = settings.OPENAI_API_KEY
         if not api_key:
             raise ValueError("API key is missing. Please set it in the environment or .env file.")
