@@ -1,5 +1,6 @@
 .venv
 .env
+archive
 __pycache__
 exercises/*
 !exercises/__init__.py
