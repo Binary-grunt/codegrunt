@@ -2,7 +2,7 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database.models import Base, User
-from database.repositories import UserRepository
+from database.repositories.user_repository import UserRepository
 
 # Fixture for in-memory SQLite database
 
@@ -13,7 +13,7 @@ def db_session():
     Creates a new SQLAlchemy session with an in-memory SQLite database for each test.
     """
     # Create an in-memory SQLite database
-    engine = create_engine("sqlite:///:memory:", echo=True)
+    engine = create_engine("sqlite:///:memory:")
     Base.metadata.create_all(bind=engine)  # Create tables
 
     # Create a session factory
@@ -49,6 +49,22 @@ def test_add_user(user_repository, db_session):
     assert new_user.id is not None
     assert db_session.query(User).count() == 1
     assert db_session.query(User).first().id == new_user.id
+
+
+def test_get_first_user(user_repository, db_session):
+    """
+    Test the get_first_user method.
+    """
+    # Add multiple users
+    user1 = user_repository.add_user()
+    user_repository.add_user()
+
+    # Retrieve the first user
+    first_user = user_repository.get_first_user()
+
+    # Verify the first user matches the first added user
+    assert first_user is not None
+    assert first_user.id == user1.id
 
 
 def test_get_user_by_id(user_repository):

@@ -25,6 +25,15 @@ class UserRepository:
         self.db.refresh(new_user)
         return new_user
 
+    def get_first_user(self) -> User:
+        """
+        Retrieve the first user from the database.
+
+        Returns:
+            User: The first user object, or None if no users exist.
+        """
+        return self.db.query(User).first()
+
     def get_user_by_id(self, user_id: int) -> User:
         """
         Retrieve a user by ID.
