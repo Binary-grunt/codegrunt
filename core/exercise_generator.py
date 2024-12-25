@@ -1,6 +1,4 @@
-import os
-from datetime import datetime
-from .exercise_manager import ExerciseManager
+from core.managers.exercise_manager import ExerciseManager
 from .file_handler import FileHandler
 from common.utils.validator import Validator
 
@@ -12,36 +10,28 @@ class ExerciseGenerator:
 
     DEFAULT_ROOT_DIR = "exercises"
 
-    def __init__(self, language: str, subject: str, level: str, exercise_manager: ExerciseManager):
+    def __init__(self, language: str, subject: str, level: str, session_id: int, exercise_manager: ExerciseManager):
         """
-        Initialize the generator with language, subject, and level.
+        Initialize the generator with language, subject, level, and session ID.
 
         Args:
             language (str): Programming language.
             subject (str): Subject/topic of the exercises.
             level (str): Difficulty level (e.g., beginner, intermediate, advanced, expert).
+            session_id (int): Session identifier.
             exercise_manager (ExerciseManager): An instance of ExerciseManager to generate exercises.
         """
         self.language = Validator.validate_input(language, "language")
         self.subject = Validator.validate_input(subject, "subject")
         self.level = Validator.validate_input(level, "level")
-        self.timestamp = datetime.now().strftime("%Y%m%d_%H%M")
-        self.iteration = 1  # Start with the first exercise
+        self.session_id = session_id
         self.exercise_manager = exercise_manager
-        self.file_handler = None  # Initialized dynamically when needed
 
-    def get_base_path(self) -> str:
-        """
-        Generates the base path for saving exercises.
-
-        Returns:
-            str: The base path.
-        """
-        return os.path.join(
-            self.DEFAULT_ROOT_DIR,
-            self.language,
-            f"{self.subject}_{self.level}_{self.timestamp}"
+        # Initialize FileHandler with session-specific base path
+        base_path = FileHandler.initialize_session_path(
+            self.DEFAULT_ROOT_DIR, self.language, self.subject, self.level, self.session_id
         )
+        self.file_handler = FileHandler(base_path)
 
     def generate_and_save_exercise(self) -> str:
         """
@@ -49,56 +39,22 @@ class ExerciseGenerator:
 
         Returns:
             str: Path of the saved exercise file.
-
-        Raises:
-            RuntimeError: If the exercise content could not be generated or saved.
         """
         try:
-            self._initialize_file_handler()
-            exercise_content = self._generate_exercise_content()
-            file_name = self._construct_file_name()
-            file_path = self.file_handler.save_to_file(file_name, exercise_content)
-
-            self.iteration += 1
-
-            return file_path
-
-        except Exception as e:
-            raise RuntimeError(f"Failed to generate and save exercise: {e}") from e
-
-    def _generate_exercise_content(self) -> str:
-        """
-        Generates the content of the exercise using the ExerciseManager.
-
-        Returns:
-            str: The generated exercise content.
-
-        Raises:
-            RuntimeError: If the content could not be generated.
-        """
-        try:
-            return self.exercise_manager.generate_exercise(
+            # Generate exercise content
+            exercise_content = self.exercise_manager.generate_exercise(
                 subject=self.subject,
                 language=self.language,
                 level=self.level
             )
+
+            # Get file extension and iteration
+            file_extension = self.file_handler.get_extension(self.language)
+            iteration = self.file_handler.get_next_iteration(self.subject)
+
+            # Construct file name and save the file
+            file_name = f"{self.subject}_{iteration}.{file_extension}"
+            return self.file_handler.save_to_file(file_name, exercise_content)
+
         except Exception as e:
-            raise RuntimeError(f"Failed to generate exercise content: {e}") from e
-
-    def _construct_file_name(self) -> str:
-        """
-        Constructs the file name for the exercise file.
-
-        Returns:
-            str: The constructed file name.
-        """
-        base_subject = self.subject.split("_")[-1]  # Extract main subject if necessary
-        return f"{base_subject}_{self.iteration}.py"
-
-    def _initialize_file_handler(self):
-        """
-        Initializes the file handler if it has not been created yet.
-        """
-        if not self.file_handler:
-            base_path = self.get_base_path()
-            self.file_handler = FileHandler(base_path)
+            raise RuntimeError(f"Failed to generate and save exercise: {e}") from e
