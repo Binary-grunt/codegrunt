@@ -1,7 +1,6 @@
 from api.factories.prompt_exercise_factory import PromptExerciseFactory
 from api.analyzercode_prompt import AnalyzerCodePrompt
 from api.openai_service import OpenAIService
-# from .exercise_session import ExerciseSession
 
 
 class ExerciseManager:

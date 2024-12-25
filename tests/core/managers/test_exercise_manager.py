@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import MagicMock, patch
 from api.openai_service import OpenAIService
-from core.exercise_manager import ExerciseManager
+from core.managers.exercise_manager import ExerciseManager
 
 
 @pytest.fixture
