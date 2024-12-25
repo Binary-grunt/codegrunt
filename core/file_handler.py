@@ -6,6 +6,16 @@ class FileHandler:
     Handles file and directory operations.
     """
 
+    FILE_EXTENSIONS = {
+        "python": "py",
+        "cpp": "cpp",
+        "java": "java",
+        "javascript": "js",
+        "typescript": "ts",
+        "go": "go",
+        "ruby": "rb"
+    }
+
     def __init__(self, base_dir: str):
         """
         Initialize the FileHandler with a base directory.
@@ -16,6 +26,25 @@ class FileHandler:
         self.base_dir = base_dir
         self._ensure_directory_exists(base_dir)
 
+    @staticmethod
+    def get_extension(language: str) -> str:
+        """
+        Retrieves the appropriate file extension for the given language.
+
+        Args:
+            language (str): Programming language.
+
+        Returns:
+            str: The file extension for the language.
+
+        Raises:
+            ValueError: If the language is not supported.
+        """
+        extension = FileHandler.FILE_EXTENSIONS.get(language.lower())
+        if not extension:
+            raise ValueError(f"Unsupported language: {language}")
+        return extension
+
     def _ensure_directory_exists(self, path: str) -> None:
         """
         Ensures that the specified directory exists; creates it if necessary.
@@ -25,6 +54,43 @@ class FileHandler:
         """
         if not os.path.exists(path):
             os.makedirs(path)
+
+    @classmethod
+    def initialize_session_path(cls, root_dir: str, language: str, subject: str, level: str, session_id: int) -> str:
+        """
+        Initializes and returns the session-specific path for storing exercises.
+
+        Args:
+            root_dir (str): Root directory for exercises.
+            language (str): Programming language.
+            subject (str): Subject/topic of the exercises.
+            level (str): Difficulty level.
+            session_id (int): Session identifier.
+
+        Returns:
+            str: The initialized session path.
+        """
+        session_folder_name = f"{level}_{subject}_{session_id}"
+        session_path = os.path.join(root_dir, language, session_folder_name)
+        os.makedirs(session_path, exist_ok=True)
+        return session_path
+
+    def get_next_iteration(self, subject: str) -> int:
+        """
+        Determines the next available iteration number for files in the session directory.
+
+        Args:
+            subject (str): The subject/topic of the exercises.
+
+        Returns:
+            int: The next available iteration number.
+        """
+        existing_files = os.listdir(self.base_dir)
+        iterations = [
+            int(file.split("_")[-1].split(".")[0])
+            for file in existing_files if file.startswith(subject)
+        ]
+        return max(iterations, default=0) + 1
 
     def save_to_file(self, file_name: str, content: str) -> str:
         """
