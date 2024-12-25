@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from database.models import Stats
+from database.models import Sessions, Stats
 
 
 class StatsRepository:
@@ -12,32 +12,59 @@ class StatsRepository:
         """
         self.db = db
 
-    def create_or_update_stats(self, user_id: int, total_sessions: int, total_exercises: int, average_score: float) -> Stats:
+    def calculate_user_stats(self, user_id: int) -> dict:
         """
-        Create or update the stats for a given user.
+        Calculates the aggregate stats for a user based on their sessions.
+
+        Args:
+            user_id (int): The ID of the user.
+
+        Returns:
+            dict: A dictionary containing total_sessions, total_exercises, and average_score.
+        """
+        # Fetch all sessions for the user
+        sessions = self.db.query(Sessions).filter(Sessions.user_id == user_id).all()
+        if not sessions:
+            return {"total_sessions": 0, "total_exercises": 0, "average_score": 0.0}
+
+        total_sessions = len(sessions)
+        total_exercises = sum(session.exercises_completed for session in sessions)
+        average_score = sum(session.score for session in sessions) / total_sessions
+
+        return {
+            "total_sessions": total_sessions,
+            "total_exercises": total_exercises,
+            "average_score": average_score,
+        }
+
+    def create_or_update_stats(self, user_id: int) -> Stats:
+        """
+        Create or update the stats for a given user based on the most recent sessions.
 
         Args:
             user_id (int): ID of the user.
-            total_sessions (int): Total number of sessions.
-            total_exercises (int): Total number of exercises completed.
-            average_score (float): Average score per session.
 
         Returns:
             Stats: The updated or newly created stats object.
         """
+        # Récupérer les statistiques existantes
         stats = self.get_stats_by_user(user_id)
+
+        # Calculer les nouvelles statistiques
+        stats_data = self.calculate_user_stats(user_id)
+
         if stats:
-            stats.average_score = (
-                (stats.average_score * stats.total_sessions + average_score * total_sessions) / (stats.total_sessions + total_sessions)
-            )
-            stats.total_sessions += total_sessions
-            stats.total_exercises += total_exercises
+            # Remplacer les statistiques par les données recalculées
+            stats.total_sessions = stats_data["total_sessions"]
+            stats.total_exercises = stats_data["total_exercises"]
+            stats.average_score = stats_data["average_score"]
         else:
+            # Créer une nouvelle entrée si aucune statistique n'existe
             stats = Stats(
                 user_id=user_id,
-                total_sessions=total_sessions,
-                total_exercises=total_exercises,
-                average_score=average_score
+                total_sessions=stats_data["total_sessions"],
+                total_exercises=stats_data["total_exercises"],
+                average_score=stats_data["average_score"],
             )
             self.db.add(stats)
 
