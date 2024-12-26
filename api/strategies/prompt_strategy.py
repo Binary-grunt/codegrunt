@@ -7,13 +7,12 @@ class PromptStrategy(ABC):
     """
 
     @abstractmethod
-    def generate_prompt(self, subject: str, language: str) -> dict:
+    def generate_prompt(self, **kwargs) -> dict:
         """
         Generates the system and user prompts based on the strategy.
 
         Args:
-            subject (str): The programming subject.
-            language (str): The programming language.
+            kwargs: Keyword arguments needed for generating the prompt.
 
         Returns:
             dict: A dictionary with "system_message" and "user_message".
