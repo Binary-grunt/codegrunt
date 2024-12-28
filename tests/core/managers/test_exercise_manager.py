@@ -61,7 +61,7 @@ def test_generate_exercise(mock_factory, mock_openai_service):
     assert response == "Mocked response from OpenAI"
 
 
-@patch("api.analyzercode_prompt.AnalyzerCodePrompt.generate_prompt")
+@patch("api.strategies.analyzercode_prompt_strategy.AnalyzerCodePromptStrategy.generate_prompt")
 def test_analyze_code(mock_generate_prompt, mock_openai_service):
     """
     Test the analyze_code method in ExerciseManager.
