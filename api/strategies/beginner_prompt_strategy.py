@@ -1,7 +1,5 @@
 from .prompt_strategy import PromptStrategy
 
-# TODO: Modify prompt strategy to generate beginner-level prompts.
-
 
 class BeginnerPromptStrategy(PromptStrategy):
     """
