@@ -1,4 +1,4 @@
-.PHONY: build up down main test  logs shell clean rebuild restart help
+.PHONY: build up down grunt test  logs shell clean rebuild restart help
 
 # Service name principal in docker-compose.yml
 SERVICE=app
@@ -31,7 +31,7 @@ up:
 down:
 	@$(COMPOSE) down
 
-main:
+grunt:
 	@$(COMPOSE) run --rm $(SERVICE) sh -c "python main.py"
 
 test:
