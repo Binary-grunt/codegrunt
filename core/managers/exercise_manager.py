@@ -1,5 +1,5 @@
 from api.factories.prompt_exercise_factory import PromptExerciseFactory
-from api.analyzercode_prompt import AnalyzerCodePrompt
+from api.strategies import AnalyzerCodePromptStrategy
 from api.openai_service import OpenAIService
 
 
@@ -53,5 +53,5 @@ class ExerciseManager:
         Returns:
             str: "Result: True" if the code meets the requirements, otherwise "Result: False".
         """
-        prompt = AnalyzerCodePrompt.generate_prompt(file_content)
+        prompt = AnalyzerCodePromptStrategy.generate_prompt(file_content)
         return self._send_prompt_to_openai(prompt["system_message"], prompt["user_message"])
