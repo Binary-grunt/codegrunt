@@ -1,7 +1,7 @@
 import pytest
 from rich.console import Console
 from io import StringIO
-from core.interface_cli.introduction import Introduction
+from core.cli.introduction import Introduction
 
 
 @pytest.fixture
@@ -23,7 +23,7 @@ def test_display_introduction(mock_console_output):
 
     # Patch the Console instance used in Introduction
     with pytest.MonkeyPatch.context() as monkeypatch:
-        monkeypatch.setattr("core.interface_cli.introduction.Console", lambda: console)
+        monkeypatch.setattr("core.cli.introduction.Console", lambda: console)
 
         # Call the display method
         Introduction.display()

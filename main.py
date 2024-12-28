@@ -2,9 +2,10 @@ import typer
 from database import initialization_db
 from database.sqlite_config import SessionLocal
 from api import OpenAIService
-from core.interface_cli import CliController, PreferenceCli
+from core.cli import PreferenceCli
 from core.session_manager import SessionManager
 from core.managers import UserManager, ExerciseManager
+from core.cli_controller import CliController
 
 
 def main() -> None:

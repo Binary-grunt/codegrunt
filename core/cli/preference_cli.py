@@ -34,7 +34,7 @@ class PreferenceCli:
         )
         self.level = Prompt.ask(
             "[bold green]Enter the difficulty level[/bold green] (e.g., beginner/intermediate/advanced)",
-            choices=["beginner", "intermediate", "advanced"],
+            choices=["beginner", "intermediate", "advanced", "expert"],
             default="beginner",
         )
 

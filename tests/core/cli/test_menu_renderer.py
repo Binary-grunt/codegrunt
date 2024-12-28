@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch
 from rich.table import Table
-from core.interface_cli.menu_renderer import MenuRenderer
+from core.cli.menu_renderer import MenuRenderer
 
 
 @pytest.fixture
@@ -9,7 +9,7 @@ def mock_console():
     """
     Fixture to mock the Rich Console.
     """
-    with patch("core.interface_cli.menu_renderer.Console") as MockConsole:
+    with patch("core.cli.menu_renderer.Console") as MockConsole:
         yield MockConsole.return_value
 
 

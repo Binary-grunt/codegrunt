@@ -1,7 +1,7 @@
 from rich.console import Console
 from rich.prompt import Prompt
 from typer import Exit
-from core.interface_cli import Introduction, MenuLogic, MenuRenderer, PreferenceCli
+from core.cli import Introduction, MenuLogic, MenuRenderer, PreferenceCli
 from core.session_manager import SessionManager
 from core.managers import UserManager
 

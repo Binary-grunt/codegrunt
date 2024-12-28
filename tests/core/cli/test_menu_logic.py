@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import MagicMock
 from rich.console import Console
 from typer import Exit
-from core.interface_cli.menu_logic import MenuLogic
+from core.cli.menu_logic import MenuLogic
 
 
 @pytest.fixture

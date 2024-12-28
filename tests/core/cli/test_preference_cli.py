@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch
-from core.interface_cli.preference_cli import PreferenceCli
+from core.cli.preference_cli import PreferenceCli
 
 
 @pytest.fixture
@@ -11,7 +11,7 @@ def preference_cli():
     return PreferenceCli()
 
 
-@patch("core.interface_cli.preference_cli.Prompt.ask")
+@patch("core.cli.preference_cli.Prompt.ask")
 def test_set_preferences(mock_prompt_ask, preference_cli):
     """
     Test the set_preferences method with mocked user input.
@@ -56,7 +56,7 @@ def test_get_preferences_without_setting(preference_cli, capsys):
     assert "Preferences have not been set. Please configure them first." in captured.out
 
 
-@patch("core.interface_cli.preference_cli.Prompt.ask")
+@patch("core.cli.preference_cli.Prompt.ask")
 def test_get_preferences_after_setting(mock_prompt_ask, preference_cli):
     """
     Test get_preferences after preferences have been set.
