@@ -13,6 +13,7 @@ class IntermediatePromptStrategy(PromptStrategy):
                 Create exercises that build on foundational concepts with moderate complexity.""",
             "user_message": f"""
                 You will write an exercise on the next subject {subject} in the language {language}.
+                Do not write the solution code.
                 The exercise should match the difficulty level 'intermediate'.
                 Include:
                     - Instructions in comments like leetcode.

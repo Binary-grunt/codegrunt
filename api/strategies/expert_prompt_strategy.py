@@ -13,6 +13,7 @@ class ExpertPromptStrategy(PromptStrategy):
                 Create highly complex exercises that challenge the student's mastery of advanced programming concepts.""",
             "user_message": f"""
                 You will write an exercise on the next subject {subject} in the language {language}.
+                Do not write the solution code.
                 The exercise should match the difficulty level 'expert'.
                 Include:
                     - Instructions in comments like leetcode.
