@@ -14,6 +14,7 @@ CodeGrunt is an interactive CLI application designed to help users practice codi
 - **Python 3.8+**
 - **Docker & Docker Compose**
 - **OpenAI API Key**
+- **Make**
 
 ---
 
@@ -22,10 +23,10 @@ CodeGrunt is an interactive CLI application designed to help users practice codi
 ### Clone the Repository
 
 ```sh
-git clone <repository_url>
+git clone https://github.com/Binary-grunt/codegrunt.git
 cd codegrunt
 ```
-### Set Up OpenAI API Key
+### Set Up OpenAI API Key and Postgresql Database
 
 To use CodeGrunt’s exercise generation and analysis features, you’ll need an OpenAI API key. This key must be stored in a .env file for the application to access it securely.
 
@@ -35,8 +36,9 @@ Steps to Set Up the .env File
 ```sh
 touch .env
 ```
-2. Add the following line to the .env file, replacing <your-openai-api-key> with your actual API key:
+2. Add the following line to the .env file, replacing <your-openai-api-key> with your actual API key and <user> and <password> with your Postgresql credentials:
 ```sh
+DATABASE_URL=postgresql://user:password@db:5432/code_grunt_db
 OPENAI_API_KEY=<your-openai-api-key>
 ```
 3. Save the .env file.
@@ -64,7 +66,16 @@ Usage:
   make restart      - Restart all containers
 ```
 
-### Examples of Use
+### Start the Application
+
+To start the application, run the following commands:
+
+```sh
+make grunt
+```
+This command will start the application in the terminal, allowing you to interact with the CodeGrunt CLI.
+
+### Other examples of Use
 	
 1. Build Docker Images
 ```sh
@@ -74,32 +85,27 @@ make build
 ```sh
 make up
 ```
-3. Run the Main Application
-
-```sh
-make grunt
-```
-4. Run Tests
+3. Run Tests
 
 ```sh
 make test
 ```
-5. View Logs
+4. View Logs
 
 ```sh
 make logs
 ```
-6. Access the Shell of the App Container
+5. Access the Shell of the App Container
 
 ```sh
 make shell
 ```
-7. Clean Up Unused Resources
+6. Clean Up Unused Resources
 
 ```sh
 make clean
 ```
-8. Rebuild and Restart All Containers
+7. Rebuild and Restart All Containers
 
 ```sh
 make rebuild
