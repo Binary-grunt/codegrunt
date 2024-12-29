@@ -34,7 +34,7 @@ def test_set_preferences(mock_prompt_ask, preference_cli):
     )
     mock_prompt_ask.assert_any_call(
         "[bold green]Enter the difficulty level[/bold green] (e.g., beginner/intermediate/advanced)",
-        choices=["beginner", "intermediate", "advanced"],
+        choices=["beginner", "intermediate", "advanced", "expert"],
         default="beginner",
     )
 
