@@ -1,5 +1,5 @@
 import typer
-from database import initialization_db
+from database import initialization_db, wait_for_db
 from database.sqlite_config import SessionLocal
 from api import OpenAIService
 from core.cli import PreferenceCli
@@ -16,6 +16,8 @@ def main() -> None:
     and then launches the main CLI controller. It uses Typer for command-line
     argument parsing and execution.
     """
+
+    wait_for_db()
     initialization_db()
     db = SessionLocal()
 
