@@ -1,36 +1,97 @@
-# Project Planning for Code Grunt
+# CodeGrunt - Interactive Coding Practice
 
-## Objectives
-- **Goal**: Develop a comprehensive tool to automate and improve code reviews.
-- **Purpose**: Enhance code quality by providing actionable feedback and suggestions.
-- **Success Metrics**: Improved code quality and developer satisfaction.
+CodeGrunt is an interactive CLI application designed to help users practice coding exercises tailored to their preferences. The project uses Python, Docker, and Rich for an enhanced terminal interface, and supports multiple programming languages and difficulty levels.
 
-## Scope
-- **In-Scope**: Basic code analysis, user feedback, and integration with existing development workflows.
-- **Out-of-Scope**: Advanced AI-driven suggestions or language-specific optimizations.
+## Features
+	•	Generate Exercises: Create coding challenges based on your preferences (language, subject, and level).
+	•	Submit Solutions: Test and submit your solutions for feedback.
+	•	Track Progress: View statistics for your current session and overall performance.
+	•	Interactive CLI: Intuitive and styled interface powered by Rich.
 
-## Core Features
-- **Code Analysis**: Perform basic linting and syntax checks.
-- **Feedback Generation**: Provide users with clear, actionable feedback.
-- **User Interface**: Develop a command-line tool for easy integration.
+## Requirements
+	•	Python 3.8+
+	•	Docker & Docker Compose
 
-## Constraints and Requirements
-- **Technical Constraints**: Must run locally with minimal setup and support multiple programming languages.
-- **Dependencies**: Requires Docker for containerization and SQLite for data storage.
+## Setup
 
-## Timeline and Milestones
-- **Phase 1**: Initial setup and configuration (3 days).
-- **Phase 2**: Core functionality implementation (2 weeks).
-- **Phase 3**: Testing and user feedback (2 week).
-- **Phase 4**: Documentation (1 week).
-- **Phase 5**: Deployment and maintenance (ongoing).
+### Clone the Repository
 
-## Risk Assessment
-- **Potential Risks**: Compatibility issues with various environments.
-- **Mitigation**: Conduct extensive testing and gather user feedback to address issues early.
+```sh
+git clone <repository_url>
+cd codegrunt
+```
 
-## Responsibilities
-- **Project Lead**: [Binary-grunt] - Overall project management.
-- **Developers**: [Binary-grunt] - Implementation and testing.
-- **QA**: [Name] - Quality assurance and feedback collection.
+## Using the Makefile
+
+This project includes a Makefile to simplify interactions with Docker and testing. 
+Instead of manually running long Docker commands, you can use the predefined Makefile commands.
+
+### Available Commands
+
+Usage:
+```sh
+  make build        - Build Docker images
+  make up           - Start all containers in the background
+  make down         - Stop and remove containers
+  make grunt        - Run the main application
+  make test         - Run tests inside the Docker container
+  make logs         - Show logs of the running application
+  make shell        - Access the shell of the app container
+  make clean        - Clean up unused Docker resources
+  make rebuild      - Stop, remove, build, and restart all containers
+  make restart      - Restart all containers
+```
+
+### Examples of Use
+	
+1.	Build Docker Images
+```sh
+make build
+```
+2.	Start Containers
+```sh
+make up
+```
+3.	Run the Main Application
+
+```sh
+make grunt
+```
+4.	Run Tests
+
+```sh
+make test
+```
+5.	View Logs
+
+```sh
+make logs
+```
+6.	Access the Shell of the App Container
+
+```sh
+make shell
+```
+7.	Clean Up Unused Resources
+
+```sh
+make clean
+```
+8.	Rebuild and Restart All Containers
+
+```sh
+make rebuild
+```
+
+## Why Use the Makefile?
+	1.	Ease of Use:
+	•	Users don’t need to remember or type long Docker commands.
+	2.	Consistency:
+	•	Everyone uses the same set of predefined commands, ensuring uniformity across environments.
+	3.	Efficiency:
+	•	Simplifies common tasks like building images, running tests, and cleaning up resources.
+	4.	Extendability:
+	•	New commands can be easily added to the Makefile for additional functionality.
+
+By using the Makefile commands, developers can quickly set up, test, and run the application with minimal effort. It also provides a consistent workflow for all contributors.
 
