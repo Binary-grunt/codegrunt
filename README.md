@@ -3,14 +3,14 @@
 CodeGrunt is an interactive CLI application designed to help users practice coding exercises tailored to their preferences. The project uses Python, Docker, and Rich for an enhanced terminal interface, and supports multiple programming languages and difficulty levels.
 
 ## Features
-	•	Generate Exercises: Create coding challenges based on your preferences (language, subject, and level).
-	•	Submit Solutions: Test and submit your solutions for feedback.
-	•	Track Progress: View statistics for your current session and overall performance.
-	•	Interactive CLI: Intuitive and styled interface powered by Rich.
+	• Generate Exercises: Create coding challenges based on your preferences (language, subject, and level).
+	• Submit Solutions: Test and submit your solutions for feedback.
+	• Track Progress: View statistics for your current session and overall performance.
+	• Interactive CLI: Intuitive and styled interface powered by Rich.
 
 ## Requirements
-	•	Python 3.8+
-	•	Docker & Docker Compose
+	• Python 3.8+
+	• Docker & Docker Compose
 
 ## Setup
 
@@ -21,12 +21,12 @@ git clone <repository_url>
 cd codegrunt
 ```
 
-## Using the Makefile
+### Using the Makefile
 
 This project includes a Makefile to simplify interactions with Docker and testing. 
 Instead of manually running long Docker commands, you can use the predefined Makefile commands.
 
-### Available Commands
+#### Available Commands
 
 Usage:
 ```sh
@@ -42,42 +42,42 @@ Usage:
   make restart      - Restart all containers
 ```
 
-### Examples of Use
+#### Examples of Use
 	
-1.	Build Docker Images
+1. Build Docker Images
 ```sh
 make build
 ```
-2.	Start Containers
+2. Start Containers
 ```sh
 make up
 ```
-3.	Run the Main Application
+3. Run the Main Application
 
 ```sh
 make grunt
 ```
-4.	Run Tests
+4. Run Tests
 
 ```sh
 make test
 ```
-5.	View Logs
+5. View Logs
 
 ```sh
 make logs
 ```
-6.	Access the Shell of the App Container
+6. Access the Shell of the App Container
 
 ```sh
 make shell
 ```
-7.	Clean Up Unused Resources
+7. Clean Up Unused Resources
 
 ```sh
 make clean
 ```
-8.	Rebuild and Restart All Containers
+8. Rebuild and Restart All Containers
 
 ```sh
 make rebuild
