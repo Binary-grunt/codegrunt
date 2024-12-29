@@ -3,14 +3,19 @@
 CodeGrunt is an interactive CLI application designed to help users practice coding exercises tailored to their preferences. The project uses Python, Docker, and Rich for an enhanced terminal interface, and supports multiple programming languages and difficulty levels.
 
 ## Features
-	• Generate Exercises: Create coding challenges based on your preferences (language, subject, and level).
-	• Submit Solutions: Test and submit your solutions for feedback.
-	• Track Progress: View statistics for your current session and overall performance.
-	• Interactive CLI: Intuitive and styled interface powered by Rich.
+- **Generate Exercises**: Create coding challenges based on your preferences (language, subject, and level).
+- **Submit Solutions**: Test and submit your solutions for feedback.
+- **Track Progress**: View statistics for your current session and overall performance.
+- **Interactive CLI**: Intuitive and styled interface powered by `Rich`.
+
+---
 
 ## Requirements
-	• Python 3.8+
-	• Docker & Docker Compose
+- **Python 3.8+**
+- **Docker & Docker Compose**
+- **OpenAI API Key**
+
+---
 
 ## Setup
 
@@ -20,13 +25,30 @@ CodeGrunt is an interactive CLI application designed to help users practice codi
 git clone <repository_url>
 cd codegrunt
 ```
+### Set Up OpenAI API Key
 
-### Using the Makefile
+To use CodeGrunt’s exercise generation and analysis features, you’ll need an OpenAI API key. This key must be stored in a .env file for the application to access it securely.
+
+Steps to Set Up the .env File
+
+1. Create a .env file in the root of the project:
+```sh
+touch .env
+```
+2. Add the following line to the .env file, replacing <your-openai-api-key> with your actual API key:
+```sh
+OPENAI_API_KEY=<your-openai-api-key>
+```
+3. Save the .env file.
+
+---
+
+## Using the Makefile
 
 This project includes a Makefile to simplify interactions with Docker and testing. 
 Instead of manually running long Docker commands, you can use the predefined Makefile commands.
 
-#### Available Commands
+### Available Commands
 
 Usage:
 ```sh
@@ -42,7 +64,7 @@ Usage:
   make restart      - Restart all containers
 ```
 
-#### Examples of Use
+### Examples of Use
 	
 1. Build Docker Images
 ```sh
