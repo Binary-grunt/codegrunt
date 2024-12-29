@@ -53,7 +53,7 @@ class SessionManager:
             successful_exercises=0,
         )
 
-    def generate_exercise(self, user_id: int, language: str, subject: str, level: str) -> str:
+    def create_new_exercise(self, user_id: int, language: str, subject: str, level: str) -> str:
         """
         Generates an exercise using ExerciseGenerator and saves it to a file.
 

@@ -1,7 +1,7 @@
 from rich.console import Console
 from rich.prompt import Prompt
 from typer import Exit
-from core.cli import Introduction, MenuLogic, MenuRenderer, PreferenceCli
+from core.cli import Introduction, MenuController, MenuRenderer, PreferenceCli
 from core.session_manager import SessionManager
 from core.managers import UserManager
 
@@ -33,7 +33,7 @@ class CliController:
         self.user = None
 
         # Initialize MenuLogic with all needed dependencies
-        self.menu_logic = MenuLogic(
+        self.menu_logic = MenuController(
             console=self.console,
             preference_manager=self.preference_manager,
             session_manager=self.session_manager,
