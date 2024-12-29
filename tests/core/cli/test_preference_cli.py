@@ -14,18 +14,25 @@ def preference_cli():
 @patch("core.cli.preference_cli.Prompt.ask")
 def test_set_preferences(mock_prompt_ask, preference_cli):
     """
-    Test the set_preferences method with mocked user input.
+    Test the set_preferences method with mocked user input, including fuzzy matching.
     """
-    # Arrange: Mock the responses for Prompt.ask
-    mock_prompt_ask.side_effect = ["python", "OOP", "intermediate"]
+    # Arrange: Provide four responses (language, subject, confirmation, level)
+    mock_prompt_ask.side_effect = [
+        "python",        # 1) Language
+        "dat_structr",   # 2) Subject (will be fuzzy matched to "data_structures")
+        "yes",           # 3) Confirm the suggested subject
+        "intermediate",  # 4) Difficulty level
+    ]
 
     # Act: Call the set_preferences method
     preference_cli.set_preferences()
 
     # Assert: Ensure the preferences were set correctly
     assert preference_cli.language == "python"
-    assert preference_cli.subject == "OOP"
+    assert preference_cli.subject == "data_structures"  # Corrected via fuzzy matching
     assert preference_cli.level == "intermediate"
+
+    # Optional: Verify all expected Prompt.ask calls were indeed made
     mock_prompt_ask.assert_any_call(
         "[bold green]Enter the programming language[/bold green] (e.g., python, cpp, java)"
     )
@@ -33,9 +40,14 @@ def test_set_preferences(mock_prompt_ask, preference_cli):
         "[bold green]Enter the subject[/bold green] (e.g., OOP, data_structures)"
     )
     mock_prompt_ask.assert_any_call(
-        "[bold green]Enter the difficulty level[/bold green] (e.g., beginner/intermediate/advanced)",
-        choices=["beginner", "intermediate", "advanced", "expert"],
-        default="beginner",
+        "[bold green]Confirm subject?[/bold green] (yes/no)",
+        choices=["yes", "no"],
+        default="yes"
+    )
+    mock_prompt_ask.assert_any_call(
+        "[bold green]Enter the difficulty level[/bold green]",
+        choices=["beginner", "intermediate", "advanced", "expert"],  # update if needed
+        default="beginner"
     )
 
 
@@ -61,8 +73,15 @@ def test_get_preferences_after_setting(mock_prompt_ask, preference_cli):
     """
     Test get_preferences after preferences have been set.
     """
-    # Arrange: Mock the responses for Prompt.ask
-    mock_prompt_ask.side_effect = ["cpp", "data_structures", "advanced"]
+    # Provide four responses (language, subject, confirmation, level)
+    # Even though 'data_structures' is already correct, fuzzy matching
+    # will still ask for confirmation.
+    mock_prompt_ask.side_effect = [
+        "cpp",              # 1) Language
+        "data_structures",  # 2) Subject
+        "yes",              # 3) Confirm subject
+        "advanced",         # 4) Difficulty level
+    ]
 
     # Act: Set preferences and then retrieve them
     preference_cli.set_preferences()
