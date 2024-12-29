@@ -82,16 +82,3 @@ make clean
 ```sh
 make rebuild
 ```
-
-## Why Use the Makefile?
-	1.	Ease of Use:
-	•	Users don’t need to remember or type long Docker commands.
-	2.	Consistency:
-	•	Everyone uses the same set of predefined commands, ensuring uniformity across environments.
-	3.	Efficiency:
-	•	Simplifies common tasks like building images, running tests, and cleaning up resources.
-	4.	Extendability:
-	•	New commands can be easily added to the Makefile for additional functionality.
-
-By using the Makefile commands, developers can quickly set up, test, and run the application with minimal effort. It also provides a consistent workflow for all contributors.
-
