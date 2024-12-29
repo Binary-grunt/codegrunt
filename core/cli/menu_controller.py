@@ -6,7 +6,7 @@ from core.session_manager import SessionManager
 from core.managers import UserManager
 
 
-class MenuLogic:
+class MenuController:
     """
     Encapsulates all menu-related logic for the CodeGrunt CLI, splitting the
     flow between pre-exercise and post-exercise states, and handling all
@@ -54,7 +54,7 @@ class MenuLogic:
         language, subject, level = self.preference_manager.get_preferences()
 
         if choice == "1":
-            self.generate_exercise(language, subject, level)
+            self.on_user_request_exercise(language, subject, level)
         elif choice == "2":
             self.view_global_stats()
         elif choice == "3":
@@ -86,7 +86,7 @@ class MenuLogic:
         else:
             self.console.print("[yellow]Invalid choice. Please select a valid option.[/yellow]")
 
-    def generate_exercise(self, language: str, subject: str, level: str) -> None:
+    def on_user_request_exercise(self, language: str, subject: str, level: str) -> None:
         """
         Generate a new exercise file based on the current user's preferences.
 
@@ -99,7 +99,7 @@ class MenuLogic:
             self.user = self.user_manager.get_or_create_user()
 
         self.console.print("\n[blue]Generating a new exercise...[/blue]")
-        file_path = self.session_manager.generate_exercise(
+        file_path = self.session_manager.create_new_exercise(
             user_id=self.user.id, language=language, subject=subject, level=level
         )
         self.console.print(f"[green]Exercise saved at: {file_path}[/green]")
@@ -134,7 +134,7 @@ class MenuLogic:
         self.console.print(f"[green]{feedback}[/green]")
 
         self.console.print("\n[blue]Generating a new exercise after submission...[/blue]")
-        file_path = self.session_manager.generate_exercise(
+        file_path = self.session_manager.create_new_exercise(
             user_id=self.user.id, language=language, subject=subject, level=level
         )
         self.console.print(f"[green]New exercise saved at: {file_path}[/green]")
