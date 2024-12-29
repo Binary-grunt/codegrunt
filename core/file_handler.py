@@ -36,7 +36,7 @@ class FileHandler:
             raise ValueError(f"Unsupported language: {language}")
         return extension
 
-    def _ensure_permissions(self, path: str, mode: int = 0o700) -> None:
+    def ensure_permissions(self, path: str, mode: int = 0o700) -> None:
         """
         Ensures the directory has the correct permissions.
 
@@ -61,7 +61,7 @@ class FileHandler:
         if not os.path.exists(path):
             os.makedirs(path)
             print(f"Directory created: {path}")
-        self._ensure_permissions(path, mode)
+        self.ensure_permissions(path, mode)
 
     @classmethod
     def initialize_session_path(cls, root_dir: str, language: str, subject: str, level: str, session_id: int, mode: int = 0o700) -> str:
