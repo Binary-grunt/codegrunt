@@ -48,7 +48,7 @@ class Introduction:
             [bold cyan]5.[/bold cyan] View current session stats: See stats for the current session.
             [bold cyan]6.[/bold cyan] Exit: Quit the application.
 
-            [bold yellow]Note:[/bold yellow] Your progress is saved locally and
+            [bold yellow]Note:[/bold yellow] Your progress is saved in the container postgresql and
             you can resume where you left off.
             """
         console.print(Panel(instructions, style="magenta", border_style="cyan"))
