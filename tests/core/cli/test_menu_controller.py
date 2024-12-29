@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import MagicMock
 from rich.console import Console
 from typer import Exit
-from core.cli.menu_logic import MenuLogic
+from core.cli.menu_controller import MenuController
 
 
 @pytest.fixture
@@ -41,11 +41,11 @@ def test_handle_choice_pre_exercise(mock_dependencies):
     Test handle_choice_pre_exercise with different choices.
     """
     console, preference_manager, session_manager, user_manager = mock_dependencies
-    menu_logic = MenuLogic(console, preference_manager, session_manager, user_manager)
+    menu_logic = MenuController(console, preference_manager, session_manager, user_manager)
 
     # Test choice "1" (generate exercise)
     menu_logic.handle_choice_pre_exercise("1")
-    session_manager.generate_exercise.assert_called_once_with(
+    session_manager.create_new_exercise.assert_called_once_with(
         user_id=1, language="python", subject="OOP", level="beginner"
     )
     console.print.assert_any_call("\n[blue]Generating a new exercise...[/blue]")
@@ -62,7 +62,7 @@ def test_handle_choice_post_exercise(mock_dependencies):
     Test handle_choice_post_exercise with different choices.
     """
     console, preference_manager, session_manager, user_manager = mock_dependencies
-    menu_logic = MenuLogic(console, preference_manager, session_manager, user_manager)
+    menu_logic = MenuController(console, preference_manager, session_manager, user_manager)
 
     # Test choice "1" (run solution)
     menu_logic.handle_choice_post_exercise("1")

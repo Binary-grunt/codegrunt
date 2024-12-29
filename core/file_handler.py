@@ -1,20 +1,11 @@
 import os
+from config.constants import FILE_EXTENSIONS
 
 
 class FileHandler:
     """
     Handles file and directory operations.
     """
-
-    FILE_EXTENSIONS = {
-        "python": "py",
-        "cpp": "cpp",
-        "java": "java",
-        "javascript": "js",
-        "typescript": "ts",
-        "go": "go",
-        "ruby": "rb"
-    }
 
     def __init__(self, base_dir: str):
         """
@@ -40,7 +31,7 @@ class FileHandler:
         Raises:
             ValueError: If the language is not supported.
         """
-        extension = FileHandler.FILE_EXTENSIONS.get(language.lower())
+        extension = FILE_EXTENSIONS.get(language.lower())
         if not extension:
             raise ValueError(f"Unsupported language: {language}")
         return extension
