@@ -1,4 +1,4 @@
-from .sqlite_config import SessionLocal, engine
+from .database_config import SessionLocal, engine
 from .initialization_db import initialization_db
 from .wait_for_db import wait_for_db
 

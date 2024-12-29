@@ -1,5 +1,5 @@
 from .models import Base
-from .sqlite_config import engine
+from .database_config import engine
 
 
 def initialization_db():

@@ -1,6 +1,6 @@
 import typer
 from database import initialization_db, wait_for_db
-from database.sqlite_config import SessionLocal
+from database.database_config import SessionLocal
 from api import OpenAIService
 from core.cli import PreferenceCli
 from core.session_manager import SessionManager
