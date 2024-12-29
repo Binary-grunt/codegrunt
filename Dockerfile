@@ -36,9 +36,6 @@ RUN python -m venv /py && \
 RUN adduser --disabled-password --no-create-home codegruntuser
 USER codegruntuser
 
-# Update PATH to use /py/bin
-ENV PATH="/py/bin:$PATH"
-
 EXPOSE 8000
 
 # Set the default command
