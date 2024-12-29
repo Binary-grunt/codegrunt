@@ -1,5 +1,6 @@
 # Production Dependencies
-
+psycopg2-binary==2.9.10
+alembic==1.14.0
 # OpenAI API
 openai==1.58.1
 
