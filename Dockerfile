@@ -3,7 +3,8 @@ LABEL maintainer="binarygrunt"
 
 ENV PYTHONUNBUFFERED=1 \
     LANG=C.UTF-8 \
-    LC_ALL=C.UTF-8
+    LC_ALL=C.UTF-8 \
+    PATH="/py/bin:$PATH"
 
 # Define the argument for dev mode (true/false)
 ARG DEV=false
@@ -17,7 +18,8 @@ COPY requirements.dev.txt /tmp/requirements.dev.txt
 
 # Install minimal system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential libsqlite3-0 sqlite3 \
+    build-essential \
+    libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies in a virtual environment
