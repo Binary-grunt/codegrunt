@@ -13,7 +13,7 @@ class AdvancedPromptStrategy(PromptStrategy):
             Create challenging exercises that require problem-solving skills and advanced concepts.""",
             "user_message": f"""
                 You will write an exercise on the next subject {subject} in the language {language}.
-                Do not write the solution code.
+                Do not write the solution inside the exercise code.
                 The exercise should match the difficulty level 'advanced'.
                 Include:
                     - Instructions in comments like leetcode.
