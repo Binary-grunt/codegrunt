@@ -38,30 +38,33 @@ class FileHandler:
 
     def ensure_permissions(self, path: str, mode: int = 0o700) -> None:
         """
-        Ensures the directory has the correct permissions.
-
-        Args:
-            path (str): The path to check or modify.
-            mode (int): The permission mode to apply (default is 0o700).
+        Ensures the directory has the correct permissions, only if necessary.
         """
-        if os.path.exists(path):
-            current_mode = oct(os.stat(path).st_mode & 0o777)
-            if current_mode != oct(mode):
-                print(f"Updating permissions for {path} to {oct(mode)}")
-                os.chmod(path, mode)
+        try:
+            if os.path.exists(path):
+                current_mode = oct(os.stat(path).st_mode & 0o777)
+                # Avoid resetting permissions if they are already sufficient
+                if int(current_mode, 8) < mode:
+                    print(f"Updating permissions for {path} to {oct(mode)}")
+                    os.chmod(path, mode)
+        except PermissionError as e:
+            raise PermissionError(
+                f"Permission issue with directory '{path}': {e}"
+            )
 
     def _ensure_directory_exists(self, path: str, mode: int = 0o700) -> None:
         """
         Ensures that the specified directory exists; creates it if necessary and sets permissions.
-
-        Args:
-            path (str): The directory path.
-            mode (int): The permission mode to apply (default is 0o700).
         """
-        if not os.path.exists(path):
-            os.makedirs(path)
-            print(f"Directory created: {path}")
-        self.ensure_permissions(path, mode)
+        try:
+            if not os.path.exists(path):
+                os.makedirs(path)
+                print(f"Directory created: {path}")
+            self.ensure_permissions(path, mode)
+        except PermissionError as e:
+            raise PermissionError(
+                f"Unable to create or modify directory at '{path}': {e}"
+            )
 
     @classmethod
     def initialize_session_path(cls, root_dir: str, language: str, subject: str, level: str, session_id: int, mode: int = 0o700) -> str:
@@ -78,14 +81,18 @@ class FileHandler:
         Returns:
             str: The initialized session path.
         """
-        session_folder_name = f"{level}_{subject}_{session_id}"
-        session_path = os.path.join(root_dir, language, session_folder_name)
-        os.makedirs(session_path, exist_ok=True)
+        try:
+            session_folder_name = f"{level}_{subject}_{session_id}"
+            session_path = os.path.join(root_dir, language, session_folder_name)
+            os.makedirs(session_path, exist_ok=True)
 
-        # Ensure permissions
-        file_handler = cls(base_dir=root_dir)
-        file_handler.ensure_permissions(session_path, mode)
-        return session_path
+            # Ensure permissions
+            file_handler = cls(base_dir=root_dir)
+            file_handler.ensure_permissions(session_path, mode)
+            return session_path
+        except PermissionError as e:
+            print(f"Error initializing session path: {e}")
+            raise
 
     def get_next_iteration(self, subject: str) -> int:
         """
