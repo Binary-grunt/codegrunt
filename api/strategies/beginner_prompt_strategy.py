@@ -16,9 +16,11 @@ class BeginnerPromptStrategy(PromptStrategy):
                 The exercise should match the difficulty level 'beginner'.
                 Include:
                     - Instructions in comments like leetcode.
-                    - Clear and detailed comments to guide the student step-by-step.
                     - Write just prototype starter code that the student can complete.
                     - Do not write the solution inside the exercise code.
+                    - Do not complete the code, just prototype structure.
                     - Only pure code (no markdown or backticks).
-                    - The exercise should be solvable in less than 10 minutes. """
+                    - The exercise should be solvable in less than 20 minutes. """
         }
+
+# - Clear and detailed comments to guide the student step-by-step.
