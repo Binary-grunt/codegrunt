@@ -34,11 +34,10 @@ class MenuRenderer:
             menu_table.add_row("2", "View user stats (global)")
             menu_table.add_row("3", "Exit")
         else:
-            menu_table.add_row("1", "Run your solution")
-            menu_table.add_row("2", "Submit your solution")
-            menu_table.add_row("3", "View current session stats")
-            menu_table.add_row("4", "View user stats (global)")
-            menu_table.add_row("5", "Exit")
+            menu_table.add_row("1", "Submit your solution")
+            menu_table.add_row("2", "View current session stats")
+            menu_table.add_row("3", "View user stats (global)")
+            menu_table.add_row("4", "Exit")
 
         # Print the table to the console
         console.print(menu_table)
