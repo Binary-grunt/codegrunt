@@ -17,10 +17,8 @@ class BeginnerPromptStrategy(PromptStrategy):
                 Include:
                     - Instructions in comments like leetcode.
                     - Write just prototype starter code that the student can complete.
-                    - Do not write the solution inside the exercise code.
-                    - Do not complete the code, just prototype structure.
-                    - Only pure code (no markdown or backticks).
+                    - Provide only the function prototypes, structure, or necessary definitions (e.g., class/struct definitions).
+                    - Do not write any logic, implementation, or completed code in the solution.
+                    - Only pure code (no markdown or backticks) no explanation.
                     - The exercise should be solvable in less than 20 minutes. """
         }
-
-# - Clear and detailed comments to guide the student step-by-step.
