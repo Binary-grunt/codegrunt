@@ -24,17 +24,20 @@ class StatsRepository:
         """
         # Fetch all sessions for the user
         sessions = self.db.query(Sessions).filter(Sessions.user_id == user_id).all()
-        if not sessions:
+        valid_sessions = [session for session in sessions if session.exercises_completed >= 10]
+
+        if not valid_sessions:
             return {"total_sessions": 0, "total_exercises": 0, "average_score": 0.0}
 
-        total_sessions = len(sessions)
-        total_exercises = sum(session.exercises_completed for session in sessions)
-        average_score = sum(session.score for session in sessions) / total_sessions
+        # Calculate statistics based on validated sessions
+        total_sessions = len(valid_sessions)
+        total_exercises = sum(session.exercises_completed for session in valid_sessions)
+        average_score = sum(session.score for session in valid_sessions) / total_sessions
 
         return {
             "total_sessions": total_sessions,
             "total_exercises": total_exercises,
-            "average_score": average_score,
+            "average_score": round(average_score, 2),  # Round to 2 decimal places for clarity
         }
 
     def create_or_update_stats(self, user_id: int) -> Stats:
