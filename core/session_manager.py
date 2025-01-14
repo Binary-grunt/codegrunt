@@ -117,6 +117,12 @@ class SessionManager:
 
         return feedback
 
+    def _is_session_complete(self) -> bool:
+        """
+        Check if the current session is complete.
+        """
+        return self.current_session.exercises_completed >= self.MAX_EXERCISES_PER_SESSION
+
     def _update_score_session(self, analysis_result: str) -> str:
         """
         Processes the result of the submission and updates the session.
@@ -135,4 +141,13 @@ class SessionManager:
             feedback = "Exercise was incorrect. No points awarded."
 
         self.current_session.exercises_completed += 1
+        if self._is_session_complete():
+            feedback += (
+                f"\nSession Complete! Total Exercises: {self.current_session.exercises_completed}, "
+                f"Successful: {self.current_session.successful_exercises}, "
+                f"Unsuccessful: {self.current_session.exercises_completed - self.current_session.successful_exercises}."
+            )
+            # Optionally, you could also reset the session here
+            self.current_session = None
+
         return feedback
