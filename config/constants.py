@@ -1,49 +1,27 @@
 FILE_EXTENSIONS = {
     "python": "py",
     "cpp": "cpp",
+    "c": "c",
     "java": "java",
     "javascript": "js",
     "typescript": "ts",
     "go": "go",
     "ruby": "rb",
     "csharp": "cs",
-    "swift": "swift",
-    "kotlin": "kt",
-    "scala": "scala",
     "rust": "rs",
     "php": "php",
 }
 
-SUPPORTED_SUBJECTS = [
+GENERAL_SUBJECTS = [
     "OOP",
+    "functional_programming",
     "data_structures",
     "algorithms",
     "design_patterns",
-    "concurrency",
-    "networking",
-    "web_development",
-    "machine_learning",
-    "functional_programming",
-    "data_analysis",
-    "database_fundamentals",
-    "systems_programming",
-    "devops",
-    "testing",
-    "security",
-    "cloud_computing",
-    "microservices",
-    "distributed_systems",
-    "game_development",
-    "embedded_systems",
-    "code_optimization",
-    "software_architecture",
-    "debugging",
-    "big_data",
-    "mobile_development",
     "asynchronous_programming",
-    "cryptography",
-    "high_performance_computing",
-    "virtualization",
-    "containerization"
+    "code_optimization",
+    "software_architecture"
 ]
+
+
 SUPPORTED_LEVELS = ["beginner", "intermediate", "advanced", "expert"]
